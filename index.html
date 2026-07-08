@@ -36,19 +36,79 @@
 
 <!-- ============ HERO ============ -->
 <section class="hero" id="home">
-  <div class="container hero-inner">
-    <div class="hero-badge"><span class="dot"></span> B.Tech AI &amp; Data Science, Class of 2026</div>
-    <h1>Building intelligent systems that turn <span class="accent-text">data into decisions.</span></h1>
-    <p class="lede">I'm Ajay S, an AI Engineer &amp; Machine Learning Developer who builds agentic systems, generative AI applications, and end-to-end ML/NLP solutions — from prototype to production.</p>
-    <div class="hero-actions">
-      <a href="#projects" class="btn btn-primary">View My Work</a>
-      <a href="#contact" class="btn btn-outline">Contact Me</a>
-    </div>
-    <div class="stat-row reveal">
-      <div class="stat-item"><i class="fa-solid fa-graduation-cap"></i><div class="stat-label">B.Tech AI &amp; DS, 2026</div></div>
-      <div class="stat-item"><i class="fa-solid fa-brain"></i><div class="stat-label">12+ AI/ML Technologies</div></div>
-      <div class="stat-item"><i class="fa-solid fa-laptop-code"></i><div class="stat-label">5+ Projects Built</div></div>
-      <div class="stat-item"><i class="fa-solid fa-rocket"></i><div class="stat-label">2 Internships Completed</div></div>
+  <div class="hero-container">
+    <div class="hero-layout" style="display: flex; align-items: center; justify-content: space-between; gap: 48px; flex-wrap: wrap;">
+      <div class="hero-inner" style="text-align: left; max-width: 620px; flex: 1.2; min-width: 320px;">
+        <h1>Building Intelligent AI<br>Systems That Transform<br>Data Into <span class="accent-text">Real-World Impact.</span></h1>
+        <div class="hero-subheading">AI Engineer &bull; Generative AI &bull; Agentic AI &bull; Machine Learning</div>
+        <p class="lede" style="margin: 0 0 40px;">I'm Ajay S, an AI Engineer passionate about building intelligent, scalable, and production-ready AI solutions. My expertise includes Generative AI, Agentic AI, Machine Learning, Natural Language Processing, and Full-Stack AI Development. I build AI-powered applications that automate workflows, solve complex challenges, and transform innovative ideas into impactful digital products.</p>
+        <div class="hero-actions" style="justify-content: flex-start;">
+          <a href="#projects" class="btn btn-primary">Explore My Work</a>
+          <a href="#contact" class="btn btn-outline">Let's Connect</a>
+        </div>
+      </div>
+      <div class="hero-graphic" style="flex: 1; min-width: 320px; max-width: 500px; display: flex; justify-content: center; align-items: center; padding-right: 32px;">
+        <div class="diagram-container">
+          <!-- SVG Connector Lines -->
+          <svg class="diagram-svg" viewBox="0 0 450 450">
+            <!-- Background Static lines -->
+            <path class="diagram-line" d="M225,110 L225,225" />
+            <path class="diagram-line" d="M225,225 L84,225" />
+            <path class="diagram-line" d="M225,225 L366,225" />
+            <path class="diagram-line" d="M225,225 L225,325" />
+            <path class="diagram-line" d="M225,325 L120,325 L120,310" />
+            <path class="diagram-line" d="M225,325 L330,325 L330,310" />
+            
+            <!-- Animated Active Lines -->
+            <path class="diagram-line-active" d="M225,110 L225,225 L84,225" />
+            <path class="diagram-line-active" d="M225,110 L225,225 L366,225" />
+            <path class="diagram-line-active" d="M225,225 L225,325 L120,325 L120,310" />
+            <path class="diagram-line-active" d="M225,225 L225,325 L330,325 L330,310" />
+            
+            <!-- Center Junction Dot -->
+            <circle cx="225" cy="225" r="4.5" fill="#5B9BD5" style="filter: drop-shadow(0 0 6px #5B9BD5);" />
+          </svg>
+          
+          <!-- Node 1: Brain (Central Node) -->
+          <div class="diagram-node" style="left: 180px; top: 20px;">
+            <div class="node-box node-brain">
+              <i class="fa-solid fa-brain" style="font-size: 38px; color: #5B9BD5; filter: drop-shadow(0 0 8px rgba(91, 155, 213, 0.75));"></i>
+            </div>
+          </div>
+          
+          <!-- Node 2: Python -->
+          <div class="diagram-node" style="left: 16px; top: 191px;">
+            <div class="node-box node-circle node-python">
+              <i class="devicon-python-plain colored" style="font-size: 30px;"></i>
+            </div>
+            <span class="node-label">Python</span>
+          </div>
+          
+          <!-- Node 3: GenAI -->
+          <div class="diagram-node" style="right: 16px; top: 191px;">
+            <div class="node-box node-circle node-genai">
+              <i class="fa-solid fa-microchip" style="font-size: 26px; color: #a855f7; filter: drop-shadow(0 0 5px rgba(168, 85, 247, 0.75));"></i>
+            </div>
+            <span class="node-label">GenAI</span>
+          </div>
+          
+          <!-- Node 4: LangChain -->
+          <div class="diagram-node" style="left: 86px; top: 310px;">
+            <div class="node-box node-circle node-langchain">
+              <i class="fa-solid fa-link" style="font-size: 24px; color: #22c55e; filter: drop-shadow(0 0 5px rgba(34, 197, 94, 0.75));"></i>
+            </div>
+            <span class="node-label">LangChain</span>
+          </div>
+          
+          <!-- Node 5: NLP -->
+          <div class="diagram-node" style="right: 86px; top: 310px;">
+            <div class="node-box node-circle node-nlp">
+              <i class="fa-solid fa-comments" style="font-size: 24px; color: #0ea5e9; filter: drop-shadow(0 0 5px rgba(14, 165, 233, 0.75));"></i>
+            </div>
+            <span class="node-label">NLP</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
