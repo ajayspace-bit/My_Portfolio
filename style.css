@@ -237,10 +237,16 @@ section.light-section{ background:var(--bg-light-alt); padding:120px 0; color:va
 	margin:0 auto 40px;
 }
 .hero-actions{
-	display:flex; gap:16px; justify-content:center; flex-wrap:wrap;
+	display:flex; gap:16px; justify-content:flex-start; flex-wrap:wrap;
 	margin-bottom:64px;
 }
 .hero-actions .btn{ padding:15px 30px; font-size:15px; }
+
+@keyframes pulse {
+	0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(91,155,213,0.7); }
+	70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(91,155,213,0); }
+	100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(91,155,213,0); }
+}
 
 .stat-row{
 	display:grid;
@@ -368,7 +374,32 @@ section.light-section{ background:var(--bg-light-alt); padding:120px 0; color:va
 	border-color:var(--border-dark);
 	transform:translateY(-3px);
 }
-.tech-tile i, .tech-tile .fa-icon{ font-size:24px; color:#fff; }
+.tech-tile img, .tech-tile i, .tech-tile .fa-icon{ width:32px; height:32px; object-fit:contain; font-size:24px; color:#fff; }
+.tech-tile img {
+	background: rgba(255, 255, 255, 0.04);
+	border-radius: 50%;
+	padding: 6px;
+	border: 1px solid rgba(255, 255, 255, 0.05);
+	transition: all 0.25s ease;
+}
+.tech-tile:hover img {
+	background: rgba(255, 255, 255, 0.08);
+	border-color: rgba(91, 155, 213, 0.3);
+	transform: scale(1.05);
+}
+/* Invert black/monochrome logos to white for dark theme visibility */
+.tech-tile img[src*="github.svg"],
+.tech-tile img[src*="flask.svg"],
+.tech-tile img[src*="nlp.svg"],
+.tech-tile img[src*="generativeai.svg"],
+.tech-tile img[src*="prompteng.svg"],
+.tech-tile img[src*="langchain.svg"],
+.tech-tile img[src*="langgraph.svg"],
+.tech-tile img[src*="vectordbs.svg"],
+.tech-tile img[src*="llms.svg"],
+.tech-tile img[src*="rag.svg"] {
+	filter: invert(1) brightness(1.5);
+}
 .tech-tile span{ font-size:10.5px; color:var(--text-dark-muted); text-align:center; line-height:1.25; }
 
 /* ============ PROJECTS ============ */
