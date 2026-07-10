@@ -38,12 +38,4 @@
   }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
   revealEls.forEach((el) => io.observe(el));
 
-  const form = document.getElementById('contact-form');
-  const formNote = document.getElementById('form-note');
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    formNote.textContent = "Thanks! This demo form doesn't send yet — wire it up to Formspree, EmailJS, or your own API.";
-    formNote.style.color = 'var(--accent)';
-    form.reset();
-  });
 })();
