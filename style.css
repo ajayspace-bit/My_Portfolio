@@ -108,7 +108,6 @@ section.light-section{ background:var(--bg-light-alt); padding:120px 0; color:va
 	letter-spacing:0.12em;
 	color:#fff;
 }
-.logo span{ color:var(--accent); }
 .nav-links{
 	display:flex; gap:36px;
 	align-items:center;
