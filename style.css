@@ -396,7 +396,9 @@ section.light-section{ background:var(--bg-light-alt); padding:120px 0; color:va
 .tech-tile img[src*="langgraph.svg"],
 .tech-tile img[src*="vectordbs.svg"],
 .tech-tile img[src*="llms.svg"],
-.tech-tile img[src*="rag.svg"] {
+.tech-tile img[src*="rag.svg"],
+.tech-tile img[src*="powerbi.svg"],
+.tech-tile img[src*="tableau.svg"] {
 	filter: invert(1) brightness(1.5);
 }
 .tech-tile span{ font-size:10.5px; color:var(--text-dark-muted); text-align:center; line-height:1.25; }
