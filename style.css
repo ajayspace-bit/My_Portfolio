@@ -389,16 +389,8 @@ section.light-section{ background:var(--bg-light-alt); padding:120px 0; color:va
 /* Invert black/monochrome logos to white for dark theme visibility */
 .tech-tile img[src*="github.svg"],
 .tech-tile img[src*="flask.svg"],
-.tech-tile img[src*="nlp.svg"],
 .tech-tile img[src*="generativeai.svg"],
-.tech-tile img[src*="prompteng.svg"],
-.tech-tile img[src*="langchain.svg"],
-.tech-tile img[src*="langgraph.svg"],
-.tech-tile img[src*="vectordbs.svg"],
-.tech-tile img[src*="llms.svg"],
-.tech-tile img[src*="rag.svg"],
-.tech-tile img[src*="powerbi.svg"],
-.tech-tile img[src*="tableau.svg"] {
+.tech-tile img[src*="prompteng.svg"] {
 	filter: invert(1) brightness(1.5);
 }
 .tech-tile span{ font-size:10.5px; color:var(--text-dark-muted); text-align:center; line-height:1.25; }
