@@ -1,0 +1,265 @@
+{
+  "meta": {
+    "title": "Ajay S | AI Engineer",
+    "description": "AI Engineer | Generative AI | Machine Learning | Full Stack AI Developer",
+    "author": "Ajay S",
+    "favicon": "assets/images/profile.jpg",
+    "ogUrl": "https://my-portfolio-pzdz4fau7-ajay-space.vercel.app/",
+    "ogTitle": "Ajay S | AI Engineer",
+    "ogDescription": "Building Intelligent AI Systems That Transform Data Into Real-World Impact.",
+    "ogImage": "https://my-portfolio-pzdz4fau7-ajay-space.vercel.app/assets/images/profile.jpg",
+    "twitterDescription": "AI Engineer | Generative AI | Machine Learning"
+  },
+
+  "navbar": {
+    "logo": "AJAY.S",
+    "links": [
+      { "label": "Home", "href": "#home" },
+      { "label": "About Me", "href": "#about" },
+      { "label": "Skills", "href": "#skills" },
+      { "label": "Projects", "href": "#projects" },
+      { "label": "Services", "href": "#services" },
+      { "label": "Experience", "href": "#experience" },
+      { "label": "Contact Me", "href": "#contact" }
+    ],
+    "resumeLink": "assets/resume.pdf"
+  },
+
+  "hero": {
+    "badge": "Focus: Scalable & Production-Ready AI",
+    "headingLine1": "Building AI That Solves",
+    "headingLine2": "Real Problems, Not Just Demos.",
+    "description": "I'm Ajay S, an AI Engineer focused on building intelligent, scalable, and production-ready AI applications. I create AI systems that automate workflows, empower decision-making, and transform complex ideas into powerful digital solutions.",
+    "subDescription": "From autonomous AI agents and LLM-powered applications to machine learning models and modern web platforms, I build solutions designed for real-world impact.",
+    "ctaPrimary": { "label": "Explore My Projects", "href": "#projects" },
+    "ctaSecondary": { "label": "Let's Connect", "href": "#contact" }
+  },
+
+  "about": {
+    "eyebrow": "01 / About Me",
+    "heading": "Who I Am",
+    "intro": "I am an AI Engineer specializing in Artificial Intelligence & Data Science (B.Tech, 2026), dedicated to building production-ready, intelligent systems. My expertise spans the complete machine learning lifecycle—from data engineering and model optimization to deploying generative AI, RAG pipelines, and computer vision solutions using lightweight frameworks like FastAPI and Flask. Guided by technical curiosity, I focus on turning complex algorithmic concepts into robust, user-centric automation tools.",
+    "cards": [
+      {
+        "icon": "fa-solid fa-bullseye",
+        "title": "My Mission",
+        "text": "To engineer high-impact, AI-driven solutions that bridge the gap between advanced research and practical utility. I aim to build systems that are not just theoretically sound, but pragmatically designed to solve real-world problems, optimize workflows, and drive measurable value."
+      },
+      {
+        "icon": "fa-solid fa-eye",
+        "title": "My Vision",
+        "text": "To help pioneer the next generation of intelligent, ethical, and accessible agentic systems. As an aspiring leader in the AI space, I am committed to continuous learning, building with integrity, and expanding the boundaries of what human-AI collaboration can achieve."
+      }
+    ],
+    "education": {
+      "icon": "fa-solid fa-graduation-cap",
+      "degree": "B.Tech in Artificial Intelligence & Data Science",
+      "institution": "Anna University",
+      "duration": "2022 — 2026",
+      "note": "Specialized in AI/ML and Data Science"
+    }
+  },
+
+  "skills": {
+    "eyebrow": "02 / Skills",
+    "heading": "What I Work With",
+    "categories": [
+      {
+        "name": "Frontend",
+        "items": [
+          { "icon": "assets/images/html5.svg", "label": "HTML5" },
+          { "icon": "assets/images/css3.svg", "label": "CSS3" },
+          { "icon": "assets/images/javascript.svg", "label": "JavaScript" }
+        ]
+      },
+      {
+        "name": "Backend",
+        "items": [
+          { "icon": "assets/images/python.svg", "label": "Python" },
+          { "icon": "assets/images/flask.svg", "label": "Flask" },
+          { "icon": "assets/images/fastapi.svg", "label": "FastAPI" },
+          { "icon": "assets/images/mysql.svg", "label": "MySQL" }
+        ]
+      },
+      {
+        "name": "Data Analytics",
+        "items": [
+          { "icon": "assets/images/numpy.svg", "label": "NumPy" },
+          { "icon": "assets/images/pandas.svg", "label": "Pandas" },
+          { "icon": "assets/images/matplotlib.svg", "label": "Matplotlib" },
+          { "icon": "assets/images/seaborn.svg", "label": "Seaborn" },
+          { "icon": "assets/images/scikitlearn.svg", "label": "Scikit-learn" },
+          { "icon": "assets/images/excel.svg", "label": "Excel" },
+          { "icon": "assets/images/googlecolab.svg", "label": "Google Colab" },
+          { "icon": "assets/images/jupyter.svg", "label": "Jupyter" }
+        ]
+      },
+      {
+        "name": "AI & ML",
+        "items": [
+          { "icon": "assets/images/tensorflow.svg", "label": "TensorFlow" },
+          { "icon": "assets/images/pytorch.svg", "label": "PyTorch" },
+          { "icon": "assets/images/opencv.svg", "label": "OpenCV" },
+          { "icon": "assets/images/nlp.svg", "label": "NLP" },
+          { "icon": "assets/images/deeplearning.svg", "label": "Deep Learning" },
+          { "icon": "assets/images/generativeai.svg", "label": "Generative AI" },
+          { "icon": "assets/images/prompteng.svg", "label": "Prompt Eng." },
+          { "icon": "assets/images/langchain.svg", "label": "LangChain" },
+          { "icon": "assets/images/langgraph.svg", "label": "LangGraph" },
+          { "icon": "assets/images/vectordbs.svg", "label": "Vector DBs" },
+          { "icon": "assets/images/rag.svg", "label": "RAG" },
+          { "icon": "assets/images/llms.svg", "label": "LLMs" }
+        ]
+      },
+      {
+        "name": "Cloud & DevOps",
+        "items": [
+          { "icon": "assets/images/docker.svg", "label": "Docker" },
+          { "icon": "assets/images/aws.svg", "label": "AWS" },
+          { "icon": "assets/images/googlecloud.svg", "label": "Google Cloud" },
+          { "icon": "assets/images/git.svg", "label": "Git" },
+          { "icon": "assets/images/github.svg", "label": "GitHub" },
+          { "icon": "assets/images/vscode.svg", "label": "VS Code" }
+        ]
+      },
+      {
+        "name": "Business Intelligence",
+        "items": [
+          { "icon": "assets/images/powerbi.svg", "label": "Power BI" },
+          { "icon": "assets/images/tableau.svg", "label": "Tableau" }
+        ]
+      }
+    ]
+  },
+
+  "projects": {
+    "eyebrow": "03 / Projects",
+    "heading": "Things I've Built",
+    "items": [
+      {
+        "icon": "fa-solid fa-file-lines",
+        "title": "AI Resume Screener",
+        "description": "NLP-based tool that parses and ranks resumes against job descriptions using LLMs.",
+        "tags": ["Python", "NLP", "LLMs", "Flask"],
+        "github": "#"
+      },
+      {
+        "icon": "fa-solid fa-comments",
+        "title": "RAG-based Document Q&A Bot",
+        "description": "Chatbot that answers questions from uploaded PDFs using vector search and LangChain.",
+        "tags": ["LangChain", "RAG", "Vector DB"],
+        "github": "#"
+      },
+      {
+        "icon": "fa-solid fa-camera",
+        "title": "Real-Time Object Detection App",
+        "description": "Computer vision app using OpenCV/YOLO for live object detection via webcam.",
+        "tags": ["OpenCV", "YOLO", "CV"],
+        "github": "#"
+      },
+      {
+        "icon": "fa-solid fa-chart-column",
+        "title": "Sales Data Analytics Dashboard",
+        "description": "End-to-end data pipeline with Pandas + visualization dashboard for business insights.",
+        "tags": ["Pandas", "Data Viz", "Analytics"],
+        "github": "#"
+      },
+      {
+        "icon": "fa-solid fa-pen-nib",
+        "title": "AI Content Generator (Flask App)",
+        "description": "Full-stack Flask web app that generates marketing copy using a fine-tuned LLM.",
+        "tags": ["Flask", "LLM", "Full-Stack"],
+        "github": "#"
+      }
+    ]
+  },
+
+  "services": {
+    "eyebrow": "04 / What I Do",
+    "heading": "Services I Offer",
+    "items": [
+      {
+        "icon": "fa-solid fa-robot",
+        "title": "AI Development",
+        "description": "Custom AI solutions tailored to your business needs — from concept to production deployment."
+      },
+      {
+        "icon": "fa-solid fa-wand-magic-sparkles",
+        "title": "Gen AI Applications",
+        "description": "Build intelligent applications powered by LLMs, RAG systems, and conversational AI agents."
+      },
+      {
+        "icon": "fa-solid fa-diagram-project",
+        "title": "ML Solutions",
+        "description": "End-to-end machine learning pipelines — data preprocessing, model training, evaluation, and deployment."
+      },
+      {
+        "icon": "fa-solid fa-gears",
+        "title": "Python Automation",
+        "description": "Automate repetitive tasks, build data pipelines, and create efficient workflows with Python."
+      },
+      {
+        "icon": "fa-solid fa-chart-line",
+        "title": "Data Analytics",
+        "description": "Transform raw data into actionable insights with statistical analysis, visualization, and reporting."
+      },
+      {
+        "icon": "fa-solid fa-camera-retro",
+        "title": "Computer Vision",
+        "description": "Image recognition, object detection, OCR, and visual AI systems for real-world applications."
+      },
+      {
+        "icon": "fa-solid fa-microchip",
+        "title": "LLM Applications",
+        "description": "Fine-tuned language models, prompt engineering, and custom GPT integrations for your domain."
+      },
+      {
+        "icon": "fa-solid fa-magnifying-glass",
+        "title": "RAG Systems",
+        "description": "Retrieval-Augmented Generation systems with vector databases for accurate, context-aware AI responses."
+      }
+    ]
+  },
+
+  "experience": {
+    "eyebrow": "05 / Experience",
+    "heading": "Where I've Worked",
+    "items": [
+      {
+        "title": "AI/ML Intern",
+        "company": "[Company Name]",
+        "duration": "Jun 2025 – Aug 2025",
+        "bullets": [
+          "Built and fine-tuned NLP models for text classification tasks",
+          "Developed data preprocessing pipelines reducing model training time",
+          "Collaborated with senior engineers on deploying models to production"
+        ]
+      },
+      {
+        "title": "Data Science Intern",
+        "company": "[Company Name]",
+        "duration": "Dec 2024 – Feb 2025",
+        "bullets": [
+          "Performed exploratory data analysis on large datasets using Pandas/NumPy",
+          "Created dashboards and visualizations to support business decisions",
+          "Assisted in building and evaluating machine learning models"
+        ]
+      }
+    ]
+  },
+
+  "contact": {
+    "eyebrow": "06 / Get In Touch",
+    "heading": "Want to collaborate?",
+    "emailLinkText": "Email me!",
+    "email": "contact.ajayspace@gmail.com",
+    "location": "India",
+    "socialLabel": "Follow Me",
+    "socials": [
+      { "icon": "fa-brands fa-linkedin-in", "label": "LinkedIn", "href": "#" },
+      { "icon": "fa-brands fa-github", "label": "GitHub", "href": "#" },
+      { "icon": "fa-brands fa-x-twitter", "label": "Twitter", "href": "#" },
+      { "icon": "fa-brands fa-instagram", "label": "Instagram", "href": "#" }
+    ]
+  }
+}
