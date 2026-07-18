@@ -102,13 +102,13 @@
           { "icon": "assets/images/opencv.svg", "label": "OpenCV" },
           { "icon": "assets/images/nlp.svg", "label": "NLP" },
           { "icon": "assets/images/deeplearning.svg", "label": "Deep Learning" },
-          { "icon": "assets/images/generativeai.svg", "label": "Generative AI" },
-          { "icon": "assets/images/prompteng.svg", "label": "Prompt Eng." },
-          { "icon": "assets/images/langchain.svg", "label": "LangChain" },
-          { "icon": "assets/images/langgraph.svg", "label": "LangGraph" },
-          { "icon": "assets/images/vectordbs.svg", "label": "Vector DBs" },
-          { "icon": "assets/images/rag.svg", "label": "RAG" },
-          { "icon": "assets/images/llms.svg", "label": "LLMs" }
+          { "icon": "assets/images/generativeai.svg", "label": "Generative AI", "hidden": true },
+          { "icon": "assets/images/prompteng.svg", "label": "Prompt Eng.", "hidden": true },
+          { "icon": "assets/images/langchain.svg", "label": "LangChain", "hidden": true },
+          { "icon": "assets/images/langgraph.svg", "label": "LangGraph", "hidden": true },
+          { "icon": "assets/images/vectordbs.svg", "label": "Vector DBs", "hidden": true },
+          { "icon": "assets/images/rag.svg", "label": "RAG", "hidden": true },
+          { "icon": "assets/images/llms.svg", "label": "LLMs", "hidden": true }
         ]
       },
       {

@@ -139,21 +139,24 @@
     setText('skillsHeading', skills.heading);
 
     const grid = document.getElementById('skillsGrid');
-    grid.innerHTML = skills.categories.map(cat => `
+    grid.innerHTML = skills.categories.map(cat => {
+      const visibleItems = cat.items.filter(item => !item.hidden);
+      if (visibleItems.length === 0) return '';
+      return `
       <div class="skill-cat reveal">
         <div class="skill-cat-head">
-          <h3>${esc(cat.name)}</h3><span class="skill-count">${cat.items.length}</span>
+          <h3>${esc(cat.name)}</h3><span class="skill-count">${visibleItems.length}</span>
         </div>
         <div class="tech-grid">
-          ${cat.items.map(item => `
+          ${visibleItems.map(item => `
             <div class="tech-tile">
               <img src="${esc(item.icon)}" alt="${esc(item.label)}" class="tech-icon">
               <span>${esc(item.label)}</span>
             </div>
           `).join('')}
         </div>
-      </div>
-    `).join('');
+      </div>`;
+    }).join('');
   }
 
   function renderProjects(projects) {
