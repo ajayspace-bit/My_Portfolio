@@ -186,7 +186,8 @@
       {
         "icon": "fa-solid fa-wand-magic-sparkles",
         "title": "Gen AI Applications",
-        "description": "Build intelligent applications powered by LLMs, RAG systems, and conversational AI agents."
+        "description": "Build intelligent applications powered by LLMs, RAG systems, and conversational AI agents.",
+        "hidden": true
       },
       {
         "icon": "fa-solid fa-diagram-project",
@@ -211,12 +212,14 @@
       {
         "icon": "fa-solid fa-microchip",
         "title": "LLM Applications",
-        "description": "Fine-tuned language models, prompt engineering, and custom GPT integrations for your domain."
+        "description": "Fine-tuned language models, prompt engineering, and custom GPT integrations for your domain.",
+        "hidden": true
       },
       {
         "icon": "fa-solid fa-magnifying-glass",
         "title": "RAG Systems",
-        "description": "Retrieval-Augmented Generation systems with vector databases for accurate, context-aware AI responses."
+        "description": "Retrieval-Augmented Generation systems with vector databases for accurate, context-aware AI responses.",
+        "hidden": true
       }
     ]
   },

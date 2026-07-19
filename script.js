@@ -181,8 +181,9 @@
     setText('servicesEyebrow', services.eyebrow);
     setText('servicesHeading', services.heading);
 
+    const visibleItems = services.items.filter(s => !s.hidden);
     const grid = document.getElementById('servicesGrid');
-    grid.innerHTML = services.items.map(s => `
+    grid.innerHTML = visibleItems.map(s => `
       <div class="service-card reveal">
         <div class="service-icon"><i class="${esc(s.icon)}"></i></div>
         <h3>${esc(s.title)}</h3>
