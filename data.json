@@ -197,7 +197,8 @@
       {
         "icon": "fa-solid fa-gears",
         "title": "Python Automation",
-        "description": "Automate repetitive tasks, build data pipelines, and create efficient workflows with Python."
+        "description": "Automate repetitive tasks, build data pipelines, and create efficient workflows with Python.",
+        "hidden": true
       },
       {
         "icon": "fa-solid fa-chart-line",
