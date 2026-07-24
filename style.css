@@ -289,9 +289,14 @@ section.light-section{ background:var(--bg-light-alt); padding:120px 0; color:va
 	border-radius:var(--radius-md);
 	padding:36px;
 	box-shadow:0 1px 3px rgba(17,24,39,0.04);
-	transition:transform .3s ease, box-shadow .3s ease;
+	transition:all .3s ease;
 }
-.card-light:hover{ transform:translateY(-4px); box-shadow:0 20px 40px -18px rgba(17,24,39,0.14); }
+.card-light:hover{ 
+	transform:translateY(-4px); 
+	background:#fff; 
+	border-color:#374151;
+	box-shadow: 5px 5px 0px #374151; 
+}
 .card-icon{
 	width:46px; height:46px;
 	border-radius:12px;
@@ -300,9 +305,10 @@ section.light-section{ background:var(--bg-light-alt); padding:120px 0; color:va
 	color:var(--accent);
 	font-size:19px;
 	margin-bottom:20px;
+	transition:all .3s ease;
 }
-.card-light h3{ font-size:19px; font-weight:700; margin-bottom:12px; color:var(--text-light-heading); }
-.card-light p{ color:var(--text-light-muted); font-size:15px; }
+.card-light h3{ font-size:19px; font-weight:700; margin-bottom:12px; color:var(--text-light-heading); transition:color .3s ease; }
+.card-light p{ color:var(--text-light-muted); font-size:15px; transition:color .3s ease; }
 
 .edu-card{
 	display:flex; gap:24px;
@@ -312,6 +318,13 @@ section.light-section{ background:var(--bg-light-alt); padding:120px 0; color:va
 	border-radius:var(--radius-md);
 	padding:32px;
 	box-shadow:0 1px 3px rgba(17,24,39,0.04);
+	transition:all .3s ease;
+}
+.edu-card:hover{
+	transform:translateY(-4px); 
+	background:#fff; 
+	border-color:#374151;
+	box-shadow: 5px 5px 0px #374151; 
 }
 .edu-icon{
 	width:54px; height:54px; flex-shrink:0;
@@ -319,11 +332,12 @@ section.light-section{ background:var(--bg-light-alt); padding:120px 0; color:va
 	background:var(--accent-dim);
 	display:flex; align-items:center; justify-content:center;
 	color:var(--accent); font-size:22px;
+	transition:all .3s ease;
 }
-.edu-body h3{ font-size:19px; font-weight:700; margin-bottom:6px; color:var(--text-light-heading); }
+.edu-body h3{ font-size:19px; font-weight:700; margin-bottom:6px; color:var(--text-light-heading); transition:color .3s ease; }
 .edu-body .edu-inst{ color:var(--accent); font-weight:600; font-size:14.5px; margin-bottom:4px; }
-.edu-body .edu-dur{ font-family:var(--font-mono); font-size:13px; color:var(--text-light-muted); margin-bottom:10px; }
-.edu-body .edu-note{ color:var(--text-light-muted); font-size:14.5px; }
+.edu-body .edu-dur{ font-family:var(--font-mono); font-size:13px; color:var(--text-light-muted); margin-bottom:10px; transition:color .3s ease; }
+.edu-body .edu-note{ color:var(--text-light-muted); font-size:14.5px; transition:color .3s ease; }
 
 /* ============ SKILLS ============ */
 .skills-grid{
