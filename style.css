@@ -427,7 +427,12 @@ section.light-section{ background:var(--bg-light-alt); padding:120px 0; color:va
 	display:flex; flex-direction:column;
 	transition:transform .3s ease, box-shadow .3s ease;
 }
-.project-card:hover{ transform:translateY(-6px); box-shadow:0 24px 48px -20px rgba(17,24,39,0.18); }
+.project-card:hover{ 
+	transform:translateY(-4px); 
+	background:#fff; 
+	border-color:#374151;
+	box-shadow: 5px 5px 0px #374151; 
+}
 .project-thumb{
 	height:150px;
 	background:linear-gradient(135deg, #0A0E1A, #16233A);
