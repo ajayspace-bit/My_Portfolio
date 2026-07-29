@@ -214,8 +214,8 @@
 
     const headingEl = document.getElementById('contactHeadingEl');
     headingEl.innerHTML = `
-      ${esc(contact.heading)} <a href="mailto:${esc(contact.email)}"
-        style="color: #da70d6; font-weight: 600; text-decoration: none; transition: opacity 0.25s ease;"
+      ${esc(contact.heading)} <br/><a href="mailto:${esc(contact.email)}"
+        style="background: linear-gradient(135deg, var(--accent), #a0c4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; text-decoration: none; transition: opacity 0.25s ease;"
         onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">${esc(contact.emailLinkText)}</a>
     `;
 
