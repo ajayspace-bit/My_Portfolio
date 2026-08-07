@@ -425,15 +425,15 @@ section.light-section{ background:var(--bg-light-alt); padding:120px 0; color:va
 	border:1px solid var(--border-light);
 	border-radius:var(--radius-md);
 	overflow:hidden;
-	box-shadow:0 1px 3px rgba(17,24,39,0.04);
+	box-shadow:0 4px 20px rgba(0,0,0,0.05);
 	display:flex; flex-direction:column;
-	transition:transform .3s ease, box-shadow .3s ease;
+	transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
 }
 .project-card:hover{ 
-	transform:translateY(-4px); 
+	transform:translateY(-6px); 
 	background:#fff; 
-	border-color:#374151;
-	box-shadow: 5px 5px 0px #374151; 
+	border-color:rgba(91,155,213,0.3);
+	box-shadow: 0 12px 30px rgba(0,0,0,0.1); 
 }
 .project-thumb{
 	height:150px;
@@ -441,12 +441,6 @@ section.light-section{ background:var(--bg-light-alt); padding:120px 0; color:va
 	display:flex; align-items:center; justify-content:center;
 	position:relative;
 	overflow:hidden;
-}
-.project-thumb::before{
-	content:'';
-	position:absolute; inset:0;
-	background-image:linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
-	background-size:22px 22px;
 }
 .project-thumb i{ font-size:34px; color:var(--accent); position:relative; z-index:1; }
 .project-thumb img{
