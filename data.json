@@ -137,38 +137,17 @@
     "heading": "Things I've Built",
     "items": [
       {
-        "icon": "fa-solid fa-file-lines",
-        "title": "AI Resume Screener",
-        "description": "NLP-based tool that parses and ranks resumes against job descriptions using LLMs.",
-        "tags": ["Python", "NLP", "LLMs", "Flask"],
+        "icon": "fa-solid fa-hand-holding-dollar",
+        "title": "Bank Personal Loan Prediction",
+        "description": "Developed a machine learning model to predict personal loan acceptance using customer demographic and financial data. Performed data preprocessing, exploratory data analysis, feature engineering, and model evaluation to improve prediction accuracy. Enabled data-driven decision-making by identifying customers with a high likelihood of accepting personal loan offers.",
+        "tags": ["Python", "Machine Learning", "Scikit-Learn", "EDA"],
         "github": "#"
       },
       {
-        "icon": "fa-solid fa-comments",
-        "title": "RAG-based Document Q&A Bot",
-        "description": "Chatbot that answers questions from uploaded PDFs using vector search and LangChain.",
-        "tags": ["LangChain", "RAG", "Vector DB"],
-        "github": "#"
-      },
-      {
-        "icon": "fa-solid fa-camera",
-        "title": "Real-Time Object Detection App",
-        "description": "Computer vision app using OpenCV/YOLO for live object detection via webcam.",
-        "tags": ["OpenCV", "YOLO", "CV"],
-        "github": "#"
-      },
-      {
-        "icon": "fa-solid fa-chart-column",
-        "title": "Sales Data Analytics Dashboard",
-        "description": "End-to-end data pipeline with Pandas + visualization dashboard for business insights.",
-        "tags": ["Pandas", "Data Viz", "Analytics"],
-        "github": "#"
-      },
-      {
-        "icon": "fa-solid fa-pen-nib",
-        "title": "AI Content Generator (Flask App)",
-        "description": "Full-stack Flask web app that generates marketing copy using a fine-tuned LLM.",
-        "tags": ["Flask", "LLM", "Full-Stack"],
+        "icon": "fa-solid fa-house-chimney",
+        "title": "Chennai Real Estate Price Prediction Using Machine Learning",
+        "description": "Built a machine learning model to predict Chennai property prices using location and property features. Applied data preprocessing, feature selection, and model evaluation to improve accuracy and deliver useful price estimation insights.",
+        "tags": ["Python", "Machine Learning", "Regression", "Data Preprocessing"],
         "github": "#"
       }
     ]
@@ -230,24 +209,16 @@
     "heading": "Where I've Worked",
     "items": [
       {
-        "title": "AI/ML Intern",
-        "company": "[Company Name]",
-        "duration": "Jun 2025 – Aug 2025",
-        "bullets": [
-          "Built and fine-tuned NLP models for text classification tasks",
-          "Developed data preprocessing pipelines reducing model training time",
-          "Collaborated with senior engineers on deploying models to production"
-        ]
+        "title": "Front-End Development Intern",
+        "company": "Hazzino Tech",
+        "duration": "June -- 2024",
+        "description": "Developed responsive and interactive web pages using HTML, CSS, and JavaScript. Focused on creating intuitive user interfaces, improving website performance, and maintaining code quality. Used Git for version control and collaborated effectively within a team environment."
       },
       {
-        "title": "Data Science Intern",
-        "company": "[Company Name]",
-        "duration": "Dec 2024 – Feb 2025",
-        "bullets": [
-          "Performed exploratory data analysis on large datasets using Pandas/NumPy",
-          "Created dashboards and visualizations to support business decisions",
-          "Assisted in building and evaluating machine learning models"
-        ]
+        "title": "Machine Learning Intern",
+        "company": "Suraj Technologies",
+        "duration": "Feb 2026 – Apr 2026",
+        "description": "Gained hands-on experience in implementing machine learning algorithms for data analysis and predictive modeling. Performed data preprocessing, feature selection, model training, and performance evaluation while following industry best practices and collaborating with team members on real-world projects."
       }
     ]
   },

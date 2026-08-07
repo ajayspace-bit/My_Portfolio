@@ -197,16 +197,22 @@
     setText('expHeading', exp.heading);
 
     const timeline = document.getElementById('expTimeline');
-    timeline.innerHTML = exp.items.map(e => `
-      <div class="timeline-item reveal">
-        <div class="timeline-dot"></div>
-        <h3>${esc(e.title)}</h3>
-        <div class="role-meta">${esc(e.company)} <span class="dur">${esc(e.duration)}</span></div>
-        <ul>
-          ${e.bullets.map(b => `<li>${esc(b)}</li>`).join('')}
-        </ul>
-      </div>
-    `).join('');
+    timeline.innerHTML = exp.items.map(e => {
+      let detailsHTML = '';
+      if (e.bullets && e.bullets.length > 0) {
+        detailsHTML = `<ul>${e.bullets.map(b => `<li>${esc(b)}</li>`).join('')}</ul>`;
+      } else if (e.description) {
+        detailsHTML = `<p>${esc(e.description)}</p>`;
+      }
+      return `
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <h3>${esc(e.title)}</h3>
+          <div class="role-meta">${esc(e.company)} <span class="dur">${esc(e.duration)}</span></div>
+          ${detailsHTML}
+        </div>
+      `;
+    }).join('');
   }
 
   function renderContact(contact) {

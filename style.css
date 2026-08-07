@@ -542,6 +542,11 @@ section.light-section{ background:var(--bg-light-alt); padding:120px 0; color:va
 .timeline-item li::before{
 	content:'▸'; position:absolute; left:0; color:var(--accent);
 }
+.timeline-item p{
+	color:var(--text-light-muted); font-size:14.5px;
+	margin-bottom:8px;
+	line-height:1.6;
+}
 
 /* ============ CONTACT ============ */
 .contact-grid{
