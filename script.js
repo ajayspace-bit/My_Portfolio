@@ -103,6 +103,15 @@
       <a href="${esc(hero.ctaSecondary.href)}" class="btn btn-outline" style="padding: 15px 30px; font-size: 15px;">
         ${esc(hero.ctaSecondary.label)}</a>
     `;
+
+    const imgWrapper = document.getElementById('heroImageWrapper');
+    if (imgWrapper && hero.image) {
+      imgWrapper.innerHTML = `
+        <div class="hero-image-card">
+          <img src="${esc(hero.image)}" alt="Ajay S">
+        </div>
+      `;
+    }
   }
 
   function renderAbout(about) {
@@ -164,17 +173,25 @@
     setText('projectsHeading', projects.heading);
 
     const grid = document.getElementById('projectsGrid');
-    grid.innerHTML = projects.items.map(p => `
-      <div class="project-card reveal">
-        <div class="project-thumb"><i class="${esc(p.icon)}"></i></div>
-        <div class="project-body">
-          <h3>${esc(p.title)}</h3>
-          <p>${esc(p.description)}</p>
-          <div class="tag-row">${p.tags.map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div>
-          <a href="${esc(p.github)}" class="project-link"><i class="fa-brands fa-github"></i> View on GitHub →</a>
+    grid.innerHTML = projects.items.map(p => {
+      let thumbHTML = '';
+      if (p.image) {
+        thumbHTML = `<img src="${esc(p.image)}" alt="${esc(p.title)}">`;
+      } else if (p.icon) {
+        thumbHTML = `<i class="${esc(p.icon)}"></i>`;
+      }
+      return `
+        <div class="project-card reveal">
+          <div class="project-thumb">${thumbHTML}</div>
+          <div class="project-body">
+            <h3>${esc(p.title)}</h3>
+            <p>${esc(p.description)}</p>
+            <div class="tag-row">${p.tags.map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div>
+            <a href="${esc(p.github)}" class="project-link"><i class="fa-brands fa-github"></i> View on GitHub →</a>
+          </div>
         </div>
-      </div>
-    `).join('');
+      `;
+    }).join('');
   }
 
   function renderServices(services) {

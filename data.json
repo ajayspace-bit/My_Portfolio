@@ -26,6 +26,7 @@
   },
 
   "hero": {
+    "image": "assets/images/profile.jpg",
     "badge": "Focus: Scalable & Production-Ready AI",
     "headingLine1": "Building AI That Solves",
     "headingLine2": "Real Problems, Not Just Demos.",
@@ -137,14 +138,14 @@
     "heading": "Things I've Built",
     "items": [
       {
-        "icon": "fa-solid fa-hand-holding-dollar",
+        "image": "assets/images/project_loan.png",
         "title": "Bank Personal Loan Prediction",
         "description": "Developed a machine learning model to predict personal loan acceptance using customer demographic and financial data. Performed data preprocessing, exploratory data analysis, feature engineering, and model evaluation to improve prediction accuracy. Enabled data-driven decision-making by identifying customers with a high likelihood of accepting personal loan offers.",
         "tags": ["Python", "Machine Learning", "Scikit-Learn", "EDA"],
         "github": "#"
       },
       {
-        "icon": "fa-solid fa-house-chimney",
+        "image": "assets/images/project_real_estate.png",
         "title": "Chennai Real Estate Price Prediction Using Machine Learning",
         "description": "Built a machine learning model to predict Chennai property prices using location and property features. Applied data preprocessing, feature selection, and model evaluation to improve accuracy and deliver useful price estimation insights.",
         "tags": ["Python", "Machine Learning", "Regression", "Data Preprocessing"],
