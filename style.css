@@ -290,14 +290,14 @@ section.light-section{ background:var(--bg-light-alt); padding:120px 0; color:va
 	border:1px solid var(--border-light);
 	border-radius:var(--radius-md);
 	padding:36px;
-	box-shadow:0 1px 3px rgba(17,24,39,0.04);
-	transition:all .3s ease;
+	box-shadow:0 4px 20px rgba(0,0,0,0.05);
+	transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
 }
 .card-light:hover{ 
-	transform:translateY(-4px); 
+	transform:translateY(-6px); 
 	background:#fff; 
-	border-color:#374151;
-	box-shadow: 5px 5px 0px #374151; 
+	border-color:rgba(91,155,213,0.3);
+	box-shadow: 0 12px 30px rgba(0,0,0,0.1); 
 }
 .card-icon{
 	width:46px; height:46px;
@@ -311,7 +311,7 @@ section.light-section{ background:var(--bg-light-alt); padding:120px 0; color:va
 }
 .card-light h3{ font-size:19px; font-weight:700; margin-bottom:12px; color:var(--text-light-heading); transition:color .3s ease; }
 .card-light p{ color:var(--text-light-muted); font-size:15px; transition:color .3s ease; }
-
+ 
 .edu-card{
 	display:flex; gap:24px;
 	align-items:flex-start;
@@ -319,14 +319,14 @@ section.light-section{ background:var(--bg-light-alt); padding:120px 0; color:va
 	border:1px solid var(--border-light);
 	border-radius:var(--radius-md);
 	padding:32px;
-	box-shadow:0 1px 3px rgba(17,24,39,0.04);
-	transition:all .3s ease;
+	box-shadow:0 4px 20px rgba(0,0,0,0.05);
+	transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
 }
 .edu-card:hover{
-	transform:translateY(-4px); 
+	transform:translateY(-6px); 
 	background:#fff; 
-	border-color:#374151;
-	box-shadow: 5px 5px 0px #374151; 
+	border-color:rgba(91,155,213,0.3);
+	box-shadow: 0 12px 30px rgba(0,0,0,0.1); 
 }
 .edu-icon{
 	width:54px; height:54px; flex-shrink:0;
