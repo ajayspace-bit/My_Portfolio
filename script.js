@@ -329,7 +329,7 @@
 
   async function bootstrap() {
     try {
-      const res = await fetch('data.json');
+      const res = await fetch('data.json?v=2');
       if (!res.ok) throw new Error(`Failed to load data.json (${res.status})`);
       const data = await res.json();
 

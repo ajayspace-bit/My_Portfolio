@@ -26,7 +26,7 @@
   },
 
   "hero": {
-    "image": "assets/images/profile.jpg",
+    "image": "",
     "badge": "Focus: Scalable & Production-Ready AI",
     "headingLine1": "Building AI That Solves",
     "headingLine2": "Real Problems, Not Just Demos.",

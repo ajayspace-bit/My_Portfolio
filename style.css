@@ -187,28 +187,14 @@ section.light-section{ background:var(--bg-light-alt); padding:120px 0; color:va
 	padding-top:120px;
 	overflow:hidden;
 }
-.hero::before{
-	content:'';
-	position:absolute; inset:0;
-	background-image:
-		linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
-		linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
-	background-size:52px 52px;
-	mask-image: radial-gradient(ellipse 70% 55% at 50% 30%, #000 40%, transparent 90%);
-	pointer-events:none;
-}
 .hero-container{
 	width:100%;
-	padding:0 32px 0 100px;
-}
-@media (max-width:1024px){
-	.hero-container{ padding-left:60px; }
-}
-@media (max-width:768px){
-	.hero-container{ padding-left:32px; }
+	max-width:1200px;
+	margin:0 auto;
+	padding:0 32px;
 }
 @media (max-width:640px){
-	.hero-container{ padding-left:20px; padding-right:20px; }
+	.hero-container{ padding:0 20px; }
 }
 .hero-inner{
 	position:relative; z-index:2;
@@ -391,16 +377,10 @@ section.light-section{ background:var(--bg-light-alt); padding:120px 0; color:va
 }
 .tech-tile img, .tech-tile i, .tech-tile .fa-icon{ width:32px; height:32px; object-fit:contain; font-size:24px; color:#fff; }
 .tech-tile img {
-	background: rgba(255, 255, 255, 0.04);
-	border-radius: 50%;
-	padding: 6px;
-	border: 1px solid rgba(255, 255, 255, 0.05);
 	transition: all 0.25s ease;
 }
 .tech-tile:hover img {
-	background: rgba(255, 255, 255, 0.08);
-	border-color: rgba(91, 155, 213, 0.3);
-	transform: scale(1.05);
+	transform: scale(1.08);
 }
 /* Invert black/monochrome logos to white for dark theme visibility */
 .tech-tile img[src*="github.svg"],
@@ -648,13 +628,7 @@ footer .footer-links a:hover{ color:var(--accent); }
 
 /* ============ HERO PROFILE IMAGE ============ */
 .hero-image-wrapper {
-	flex: 1;
-	min-width: 300px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	position: relative;
-	z-index: 2;
+	display: none;
 }
 
 .hero-image-card {
