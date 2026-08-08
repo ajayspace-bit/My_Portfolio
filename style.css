@@ -189,17 +189,21 @@ section.light-section{ background:var(--bg-light-alt); padding:120px 0; color:va
 }
 .hero-container{
 	width:100%;
-	max-width:1200px;
-	margin:0 auto;
-	padding:0 32px;
+	padding:0 32px 0 100px;
+}
+@media (max-width:1024px){
+	.hero-container{ padding-left:60px; }
+}
+@media (max-width:768px){
+	.hero-container{ padding-left:32px; }
 }
 @media (max-width:640px){
-	.hero-container{ padding:0 20px; }
+	.hero-container{ padding-left:20px; padding-right:20px; }
 }
 .hero-inner{
 	position:relative; z-index:2;
 	max-width:800px;
-	text-align:center;
+	text-align:left;
 }
 .hero-subheading{
 	font-family:var(--font-mono);
