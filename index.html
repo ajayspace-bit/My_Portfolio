@@ -44,7 +44,7 @@
         <!-- Rendered by JS -->
       </ul>
       <div class="nav-cta">
-        <a href="assets/resume.pdf" class="btn btn-primary" id="navResume" download>Resume</a>
+        <a href="ajay.pdf" class="btn btn-primary" id="navResume" target="_blank">Resume</a>
         <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><i class="fa-solid fa-bars"></i></button>
       </div>
     </div>
@@ -192,6 +192,32 @@
   </section>
 
 
+
+  <!-- ============ RESUME MODAL ============ -->
+  <div id="resumeModal" class="pdf-modal-overlay" aria-hidden="true" role="dialog">
+    <div class="pdf-modal-card">
+      <div class="pdf-modal-header">
+        <h3 class="pdf-modal-title"><i class="fa-regular fa-file-pdf"></i> Resume</h3>
+        <div class="pdf-modal-actions">
+          <a href="ajay.pdf" class="pdf-action-btn" download aria-label="Download Resume" title="Download">
+            <i class="fa-solid fa-download"></i>
+          </a>
+          <button id="closeResumeModal" class="pdf-action-btn" aria-label="Close" title="Close">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+      <div class="pdf-modal-body">
+        <iframe id="resumeIframe" src="" frameborder="0"></iframe>
+        <div class="pdf-mobile-fallback">
+          <p>It looks like your browser doesn't support embedded PDFs on mobile.</p>
+          <a href="ajay.pdf" target="_blank" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
+            <i class="fa-solid fa-file-arrow-up"></i> Open PDF Directly
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <button class="to-top" id="toTop" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up"></i></button>
   <script src="script.js?v=3"></script>

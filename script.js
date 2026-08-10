@@ -321,6 +321,51 @@
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
     revealEls.forEach(el => io.observe(el));
+
+    // PDF Resume Modal Behavior
+    const navResume = document.getElementById('navResume');
+    const resumeModal = document.getElementById('resumeModal');
+    const closeResumeModal = document.getElementById('closeResumeModal');
+    const resumeIframe = document.getElementById('resumeIframe');
+
+    if (navResume && resumeModal && closeResumeModal && resumeIframe) {
+      const openModal = () => {
+        if (!resumeIframe.src) {
+          resumeIframe.src = navResume.getAttribute('href') || 'ajay.pdf';
+        }
+        resumeModal.classList.add('show');
+        resumeModal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('modal-open');
+      };
+
+      const closeModal = () => {
+        resumeModal.classList.remove('show');
+        resumeModal.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('modal-open');
+      };
+
+      navResume.addEventListener('click', (e) => {
+        // Only intercept normal left clicks without modifier keys (Cmd/Ctrl)
+        if (e.button === 0 && !e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey) {
+          e.preventDefault();
+          openModal();
+        }
+      });
+
+      closeResumeModal.addEventListener('click', closeModal);
+
+      resumeModal.addEventListener('click', (e) => {
+        if (e.target === resumeModal) {
+          closeModal();
+        }
+      });
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && resumeModal.classList.contains('show')) {
+          closeModal();
+        }
+      });
+    }
   }
 
   /* ═══════════════════════════════════════
