@@ -322,6 +322,31 @@
     }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
     revealEls.forEach(el => io.observe(el));
 
+    // Click Highlight Animation for Experience Items
+    const expTimeline = document.getElementById('expTimeline');
+    if (expTimeline) {
+      expTimeline.addEventListener('click', (e) => {
+        const item = e.target.closest('.timeline-item');
+        if (item) {
+          // Clear any existing timeout for this item if clicked again quickly
+          if (item.highlightTimeout) {
+            clearTimeout(item.highlightTimeout);
+          }
+          
+          item.classList.remove('highlight-active');
+          // Trigger a reflow to restart the animation if clicked again
+          void item.offsetWidth;
+          item.classList.add('highlight-active');
+          
+          // Set a timeout to return to normal after 1.2s (matching the CSS animation duration)
+          item.highlightTimeout = setTimeout(() => {
+            item.classList.remove('highlight-active');
+            item.highlightTimeout = null;
+          }, 1200);
+        }
+      });
+    }
+
     // PDF Resume Modal Behavior
     const navResume = document.getElementById('navResume');
     const resumeModal = document.getElementById('resumeModal');

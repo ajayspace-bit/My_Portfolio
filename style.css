@@ -513,17 +513,41 @@ section.light-section{
 }
 .timeline-item{
 	position:relative;
-	padding-left:52px;
+	padding:12px 20px 12px 72px;
+	margin-left:-20px;
+	margin-right:-20px;
 	margin-bottom:44px;
+	border-radius:var(--radius-md);
+	cursor:pointer;
+	transition:background-color .3s ease;
 }
 .timeline-item:last-child{ margin-bottom:0; }
+.timeline-item:hover{
+	background-color:rgba(91,155,213,0.03);
+}
+
+.timeline-item h3,
+.timeline-item .role-meta,
+.timeline-item p,
+.timeline-item ul{
+	transition:transform .25s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.timeline-item:hover h3,
+.timeline-item:hover .role-meta,
+.timeline-item:hover p,
+.timeline-item:hover ul{
+	transform:translateX(6px);
+}
+
 .timeline-dot{
-	position:absolute; left:0; top:4px;
+	position:absolute; left:20px; top:12px;
 	width:24px; height:24px;
 	border-radius:50%;
 	background:#fff;
 	border:2px solid var(--accent);
 	display:flex; align-items:center; justify-content:center;
+	transition:transform .3s cubic-bezier(0.34, 1.56, 0.64, 1), border-color .3s ease, box-shadow .3s ease;
+	z-index:2;
 }
 .timeline-dot::after{
 	content:'';
@@ -552,6 +576,51 @@ section.light-section{
 	color:var(--text-light-muted); font-size:14.5px;
 	margin-bottom:8px;
 	line-height:1.6;
+}
+
+/* Click Highlight Band Styles */
+.timeline-item::after {
+	content:'';
+	position:absolute;
+	left:56px; /* Positioned just before the text */
+	top:12px;
+	bottom:12px;
+	width:4px;
+	background:linear-gradient(180deg, var(--accent) 0%, #a0c4ff 100%);
+	border-radius:2px;
+	opacity:0;
+	transform:scaleY(0);
+	transform-origin:center;
+	transition:transform .3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity .3s ease;
+	z-index:1;
+}
+
+.timeline-item.highlight-active::after {
+	opacity:1;
+	transform:scaleY(1);
+}
+
+.timeline-item.highlight-active {
+	background-image:linear-gradient(90deg, 
+		rgba(91,155,213,0) 0%, 
+		rgba(91,155,213,0.05) 20%, 
+		rgba(91,155,213,0.16) 50%, 
+		rgba(91,155,213,0.05) 80%, 
+		rgba(91,155,213,0) 100%
+	);
+	background-size:200% 100%;
+	animation:highlight-sweep 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.timeline-item.highlight-active .timeline-dot {
+	transform:scale(1.25);
+	border-color:var(--accent);
+	box-shadow:0 0 14px rgba(91,155,213,0.6);
+}
+
+@keyframes highlight-sweep {
+	0% { background-position:150% 0; }
+	100% { background-position:-150% 0; }
 }
 
 /* ============ CONTACT ============ */
