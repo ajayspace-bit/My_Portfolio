@@ -84,8 +84,13 @@
       `<li><a href="${esc(l.href)}" class="nav-link">${esc(l.label)}</a></li>`
     ).join('');
 
+    // Store the resume PDF path as a data attribute on the button
     const resumeBtn = document.getElementById('navResume');
-    if (resumeBtn) resumeBtn.href = nav.resumeLink;
+    if (resumeBtn) resumeBtn.dataset.resumeHref = nav.resumeLink;
+
+    // Also update download link in modal header
+    const dlBtn = document.querySelector('#resumeModal .pdf-action-btn[download]');
+    if (dlBtn) dlBtn.href = nav.resumeLink;
   }
 
   function renderHero(hero) {
@@ -355,8 +360,10 @@
 
     if (navResume && resumeModal && closeResumeModal && resumeIframe) {
       const openModal = () => {
-        if (!resumeIframe.src) {
-          resumeIframe.src = navResume.getAttribute('href') || 'ajay.pdf';
+        // Get the PDF path from the data attribute set during renderNav
+        const pdfSrc = navResume.dataset.resumeHref || 'ajay.pdf';
+        if (!resumeIframe.src || resumeIframe.src === window.location.href) {
+          resumeIframe.src = pdfSrc;
         }
         resumeModal.classList.add('show');
         resumeModal.setAttribute('aria-hidden', 'false');
@@ -369,13 +376,8 @@
         document.body.classList.remove('modal-open');
       };
 
-      navResume.addEventListener('click', (e) => {
-        // Only intercept normal left clicks without modifier keys (Cmd/Ctrl)
-        if (e.button === 0 && !e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey) {
-          e.preventDefault();
-          openModal();
-        }
-      });
+      // navResume is a <button>, so no need to preventDefault for navigation
+      navResume.addEventListener('click', openModal);
 
       closeResumeModal.addEventListener('click', closeModal);
 
