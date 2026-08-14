@@ -927,3 +927,49 @@ body.modal-open {
 		display: flex;
 	}
 }
+
+/* ============ BACKGROUND ANIMATION CANVASES ============ */
+
+/* Global particle canvas — sits behind everything on the page */
+#bgCanvas {
+	position: fixed;
+	top: 0; left: 0;
+	width: 100%; height: 100%;
+	z-index: 0;
+	pointer-events: none;
+}
+
+/* Hero-specific aurora / orb canvas — local to the hero section */
+#heroCanvas {
+	position: absolute;
+	top: 0; left: 0;
+	width: 100%; height: 100%;
+	z-index: 1;
+	pointer-events: none;
+}
+
+/* Ensure all content layers sit above both canvases */
+.navbar   { z-index: 1000; }
+.hero-container,
+.hero-inner { position: relative; z-index: 2; }
+
+section.dark-section  > .container,
+section.light-section > .container { position: relative; z-index: 2; }
+
+/* Floating orb keyframes used by JS-injected DOM elements (fallback) */
+@keyframes orb-drift {
+	0%   { transform: translate(0px,   0px)   scale(1);    opacity: 0.35; }
+	33%  { transform: translate(40px, -60px)  scale(1.08); opacity: 0.45; }
+	66%  { transform: translate(-30px, 30px)  scale(0.95); opacity: 0.3;  }
+	100% { transform: translate(0px,   0px)   scale(1);    opacity: 0.35; }
+}
+
+@keyframes grid-pulse {
+	0%,100% { opacity: 0.04; }
+	50%      { opacity: 0.08; }
+}
+
+/* Accessibility — keep hardware acceleration off when reduced motion is requested */
+@media (prefers-reduced-motion: reduce) {
+	#bgCanvas, #heroCanvas { display: none; }
+}

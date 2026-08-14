@@ -432,3 +432,210 @@
   }
 
 })();
+
+/* ============================================================
+   BACKGROUND ANIMATION ENGINE
+   — Matches the existing dark #0A0E1A + accent #5B9BD5 palette
+   ============================================================ */
+
+(function () {
+
+  /* Skip if user prefers reduced motion */
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  /* ─── Colour constants (match :root vars) ─── */
+  const ACCENT     = '91,155,213';  /* --accent rgb */
+  const DEEP       = '10,14,26';    /* --bg-dark  rgb */
+
+  /* ════════════════════════════════════════════
+     1. GLOBAL PARTICLE CANVAS  (#bgCanvas)
+        Tiny floating dots that drift across the
+        entire page — subtle, never distracting.
+     ════════════════════════════════════════════ */
+  function initBgCanvas() {
+    const canvas = document.getElementById('bgCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    let W, H, particles = [];
+
+    const PARTICLE_COUNT = 80;
+
+    function resize() {
+      W = canvas.width  = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+
+    function createParticle() {
+      return {
+        x:    Math.random() * W,
+        y:    Math.random() * H,
+        r:    Math.random() * 1.4 + 0.3,          /* radius 0.3 – 1.7 px */
+        vx:   (Math.random() - 0.5) * 0.22,        /* drift speed x */
+        vy:   (Math.random() - 0.5) * 0.18,        /* drift speed y */
+        a:    Math.random() * 0.55 + 0.1,          /* opacity 0.1 – 0.65 */
+        pA:   Math.random() * Math.PI * 2,         /* pulse phase offset */
+        pS:   Math.random() * 0.005 + 0.003,       /* pulse speed */
+        glowing: Math.random() < 0.18              /* 18% are bright glowing dots */
+      };
+    }
+
+    function reset() {
+      particles = Array.from({ length: PARTICLE_COUNT }, createParticle);
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+
+      /* Draw faint background grid glow pulse */
+      const gridAlpha = 0.03 + 0.02 * Math.sin(Date.now() * 0.0004);
+      ctx.strokeStyle = `rgba(${ACCENT},${gridAlpha})`;
+      ctx.lineWidth = 0.5;
+      const STEP = 56;
+      for (let x = 0; x < W; x += STEP) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+      }
+      for (let y = 0; y < H; y += STEP) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+      }
+
+      /* Draw & update each particle */
+      const now = Date.now();
+      particles.forEach(p => {
+        p.pA += p.pS;
+        const pulsed = p.a * (0.75 + 0.25 * Math.sin(p.pA));
+
+        if (p.glowing) {
+          /* Soft glow halo around bright dots */
+          const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 5);
+          grad.addColorStop(0, `rgba(${ACCENT},${pulsed * 0.9})`);
+          grad.addColorStop(1, `rgba(${ACCENT},0)`);
+          ctx.fillStyle = grad;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r * 5, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        ctx.fillStyle = `rgba(${ACCENT},${pulsed})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+
+        /* Move */
+        p.x += p.vx;
+        p.y += p.vy;
+
+        /* Wrap around edges */
+        if (p.x < -4)  p.x = W + 4;
+        if (p.x > W+4) p.x = -4;
+        if (p.y < -4)  p.y = H + 4;
+        if (p.y > H+4) p.y = -4;
+      });
+
+      /* Draw faint connection lines between nearby particles */
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 100) {
+            ctx.strokeStyle = `rgba(${ACCENT},${0.07 * (1 - dist / 100)})`;
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', () => { resize(); reset(); });
+    resize();
+    reset();
+    draw();
+  }
+
+  /* ════════════════════════════════════════════
+     2. HERO AURORA CANVAS  (#heroCanvas)
+        Large soft glowing orbs that slowly drift
+        behind the hero text — premium aurora look.
+     ════════════════════════════════════════════ */
+  function initHeroCanvas() {
+    const canvas = document.getElementById('heroCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    let W, H;
+
+    function resize() {
+      const rect = canvas.parentElement.getBoundingClientRect();
+      W = canvas.width  = rect.width  || window.innerWidth;
+      H = canvas.height = rect.height || window.innerHeight;
+    }
+
+    /* Define 4 large aurora orbs */
+    const orbs = [
+      /* x%,  y%,  r%,  speed,  phase,   alpha, hue-shift */
+      { xP: 0.18, yP: 0.28, rP: 0.45, spd: 0.00018, ph: 0.0,              a: 0.13 },
+      { xP: 0.72, yP: 0.15, rP: 0.38, spd: 0.00024, ph: Math.PI * 0.7,   a: 0.10 },
+      { xP: 0.55, yP: 0.75, rP: 0.32, spd: 0.00031, ph: Math.PI * 1.3,   a: 0.08 },
+      { xP: 0.88, yP: 0.55, rP: 0.28, spd: 0.00020, ph: Math.PI * 1.85,  a: 0.09 },
+    ];
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      const t = Date.now();
+
+      orbs.forEach(orb => {
+        /* Gently drift the orb centre using sine waves */
+        const cx = W * (orb.xP + 0.08 * Math.sin(t * orb.spd + orb.ph));
+        const cy = H * (orb.yP + 0.06 * Math.cos(t * orb.spd * 1.3 + orb.ph));
+        const r  = Math.min(W, H) * orb.rP;
+
+        /* Pulsing alpha */
+        const alpha = orb.a * (0.8 + 0.2 * Math.sin(t * 0.0006 + orb.ph));
+
+        const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+        grad.addColorStop(0,   `rgba(${ACCENT}, ${alpha})`);
+        grad.addColorStop(0.4, `rgba(${ACCENT}, ${alpha * 0.5})`);
+        grad.addColorStop(1,   `rgba(${ACCENT}, 0)`);
+
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      /* Top-edge aurora sweep */
+      const sweepGrad = ctx.createLinearGradient(0, 0, W, 0);
+      const sweepAlpha = 0.06 + 0.03 * Math.sin(t * 0.0003);
+      sweepGrad.addColorStop(0,   `rgba(${ACCENT}, 0)`);
+      sweepGrad.addColorStop(0.3, `rgba(${ACCENT}, ${sweepAlpha})`);
+      sweepGrad.addColorStop(0.7, `rgba(${ACCENT}, ${sweepAlpha * 0.7})`);
+      sweepGrad.addColorStop(1,   `rgba(${ACCENT}, 0)`);
+      ctx.fillStyle = sweepGrad;
+      ctx.fillRect(0, 0, W, H * 0.35);
+
+      requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+    draw();
+  }
+
+  /* Boot both canvases after DOM is ready */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      initBgCanvas();
+      initHeroCanvas();
+    });
+  } else {
+    initBgCanvas();
+    initHeroCanvas();
+  }
+
+})();
