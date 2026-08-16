@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect width="100" height="100" rx="16" fill="#F97316"/>
+  <!-- LangSmith: chain link + magnifier for observability -->
+  <g transform="translate(50,50)">
+    <!-- Chain links -->
+    <rect x="-28" y="-12" width="24" height="24" rx="12" fill="none" stroke="white" stroke-width="5"/>
+    <rect x="4" y="-12" width="24" height="24" rx="12" fill="none" stroke="white" stroke-width="5"/>
+    <!-- Overlap connector -->
+    <rect x="-6" y="-8" width="12" height="16" fill="#F97316"/>
+  </g>
+  <!-- Magnifier handle -->
+  <circle cx="62" cy="68" r="14" fill="none" stroke="white" stroke-width="4"/>
+  <line x1="73" y1="79" x2="82" y2="88" stroke="white" stroke-width="4" stroke-linecap="round"/>
+</svg>

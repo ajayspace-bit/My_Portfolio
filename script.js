@@ -156,10 +156,11 @@
     grid.innerHTML = skills.categories.map(cat => {
       const visibleItems = cat.items.filter(item => !item.hidden);
       if (visibleItems.length === 0) return '';
+      const isGenAI = cat.name === 'Generative AI';
       return `
-      <div class="skill-cat reveal">
+      <div class="skill-cat reveal${isGenAI ? ' genai-cat' : ''}">
         <div class="skill-cat-head">
-          <h3>${esc(cat.name)}</h3><span class="skill-count">${visibleItems.length}</span>
+          <h3>${esc(cat.name)}${isGenAI ? ' <span style="font-size:13px;opacity:0.7">✦</span>' : ''}</h3><span class="skill-count">${visibleItems.length}</span>
         </div>
         <div class="tech-grid">
           ${visibleItems.map(item => `

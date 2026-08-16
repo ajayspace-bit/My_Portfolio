@@ -409,8 +409,39 @@ section.light-section{
 .tech-tile img[src*="github.svg"],
 .tech-tile img[src*="flask.svg"],
 .tech-tile img[src*="generativeai.svg"],
-.tech-tile img[src*="prompteng.svg"] {
+.tech-tile img[src*="prompteng.svg"],
+.tech-tile img[src*="openai.svg"] {
 	filter: invert(1) brightness(1.5);
+}
+
+/* ── Generative AI category special accent ── */
+.skill-cat.genai-cat {
+	border-color: rgba(91,155,213,0.45);
+	background: linear-gradient(135deg, rgba(91,155,213,0.07) 0%, var(--bg-dark-card) 100%);
+	box-shadow: 0 0 0 1px rgba(91,155,213,0.18), 0 8px 32px rgba(91,155,213,0.10);
+	position: relative;
+	overflow: hidden;
+}
+.skill-cat.genai-cat::before {
+	content: '';
+	position: absolute;
+	top: 0; left: 0; right: 0;
+	height: 3px;
+	background: linear-gradient(90deg, var(--accent), #a0c4ff, var(--accent));
+	background-size: 200% 100%;
+	animation: genai-shimmer 3s ease infinite;
+}
+@keyframes genai-shimmer {
+	0% { background-position: 200% 0; }
+	100% { background-position: -200% 0; }
+}
+.skill-cat.genai-cat .skill-cat-head h3 {
+	color: #a0c4ff;
+}
+.skill-cat.genai-cat:hover {
+	transform: translateY(-6px);
+	border-color: rgba(91,155,213,0.7);
+	box-shadow: 0 0 0 1px rgba(91,155,213,0.35), 0 16px 40px rgba(91,155,213,0.18);
 }
 .tech-tile span{ font-size:10.5px; color:var(--text-dark-muted); text-align:center; line-height:1.25; }
 

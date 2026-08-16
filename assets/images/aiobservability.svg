@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect width="100" height="100" rx="16" fill="#10B981"/>
+  <!-- AI Observability: eye with data/chart -->
+  <!-- Eye shape -->
+  <ellipse cx="50" cy="42" rx="30" ry="18" fill="none" stroke="white" stroke-width="4"/>
+  <!-- Pupil/iris -->
+  <circle cx="50" cy="42" r="10" fill="white"/>
+  <circle cx="50" cy="42" r="5" fill="#10B981"/>
+  <!-- Eyelashes/sparkles -->
+  <line x1="20" y1="42" x2="14" y2="42" stroke="white" stroke-width="2.5"/>
+  <line x1="80" y1="42" x2="86" y2="42" stroke="white" stroke-width="2.5"/>
+  <!-- Data bars below -->
+  <rect x="18" y="68" width="10" height="16" rx="3" fill="white" opacity="0.8"/>
+  <rect x="32" y="60" width="10" height="24" rx="3" fill="white" opacity="0.9"/>
+  <rect x="46" y="64" width="10" height="20" rx="3" fill="white" opacity="0.85"/>
+  <rect x="60" y="55" width="10" height="29" rx="3" fill="white" opacity="0.9"/>
+  <rect x="74" y="62" width="10" height="22" rx="3" fill="white" opacity="0.8"/>
+</svg>

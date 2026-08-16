@@ -98,18 +98,35 @@
       {
         "name": "AI & ML",
         "items": [
+          { "icon": "assets/images/machinelearning.svg", "label": "Machine Learning" },
           { "icon": "assets/images/tensorflow.svg", "label": "TensorFlow" },
           { "icon": "assets/images/pytorch.svg", "label": "PyTorch" },
           { "icon": "assets/images/opencv.svg", "label": "OpenCV" },
           { "icon": "assets/images/nlp.svg", "label": "NLP" },
-          { "icon": "assets/images/deeplearning.svg", "label": "Deep Learning" },
-          { "icon": "assets/images/generativeai.svg", "label": "Generative AI", "hidden": true },
-          { "icon": "assets/images/prompteng.svg", "label": "Prompt Eng.", "hidden": true },
-          { "icon": "assets/images/langchain.svg", "label": "LangChain", "hidden": true },
-          { "icon": "assets/images/langgraph.svg", "label": "LangGraph", "hidden": true },
-          { "icon": "assets/images/vectordbs.svg", "label": "Vector DBs", "hidden": true },
-          { "icon": "assets/images/rag.svg", "label": "RAG", "hidden": true },
-          { "icon": "assets/images/llms.svg", "label": "LLMs", "hidden": true }
+          { "icon": "assets/images/deeplearning.svg", "label": "Deep Learning" }
+        ]
+      },
+      {
+        "name": "Generative AI",
+        "items": [
+          { "icon": "assets/images/generativeai.svg", "label": "Generative AI" },
+          { "icon": "assets/images/llms.svg", "label": "LLMs" },
+          { "icon": "assets/images/openai.svg", "label": "OpenAI API" },
+          { "icon": "assets/images/huggingface.svg", "label": "Hugging Face" },
+          { "icon": "assets/images/langchain.svg", "label": "LangChain" },
+          { "icon": "assets/images/langgraph.svg", "label": "LangGraph" },
+          { "icon": "assets/images/langsmith.svg", "label": "LangSmith" },
+          { "icon": "assets/images/crewai.svg", "label": "CrewAI" },
+          { "icon": "assets/images/mcp.svg", "label": "MCP" },
+          { "icon": "assets/images/aiagents.svg", "label": "AI Agents" },
+          { "icon": "assets/images/multiagent.svg", "label": "Multi-Agent" },
+          { "icon": "assets/images/rag.svg", "label": "RAG" },
+          { "icon": "assets/images/vectordbs.svg", "label": "Vector DBs" },
+          { "icon": "assets/images/embeddings.svg", "label": "Embeddings" },
+          { "icon": "assets/images/prompteng.svg", "label": "Prompt Eng." },
+          { "icon": "assets/images/toolcalling.svg", "label": "Tool Calling" },
+          { "icon": "assets/images/apiintegration.svg", "label": "API Integration" },
+          { "icon": "assets/images/aiobservability.svg", "label": "AI Observability" }
         ]
       },
       {

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="48" fill="#FFD21E"/>
+  <!-- Face -->
+  <circle cx="50" cy="52" r="30" fill="#FFA500"/>
+  <!-- Eyes -->
+  <circle cx="38" cy="44" r="5" fill="#1a1a1a"/>
+  <circle cx="62" cy="44" r="5" fill="#1a1a1a"/>
+  <!-- Smile -->
+  <path d="M35 58 Q50 72 65 58" stroke="#1a1a1a" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- Ears -->
+  <ellipse cx="20" cy="50" rx="8" ry="12" fill="#FFA500"/>
+  <ellipse cx="80" cy="50" rx="8" ry="12" fill="#FFA500"/>
+  <!-- Blush -->
+  <ellipse cx="30" cy="58" rx="7" ry="5" fill="#FF8C69" opacity="0.6"/>
+  <ellipse cx="70" cy="58" rx="7" ry="5" fill="#FF8C69" opacity="0.6"/>
+</svg>
