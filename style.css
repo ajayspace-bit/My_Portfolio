@@ -396,14 +396,15 @@ section.light-section{
 	display:flex; flex-direction:column; align-items:center; gap:8px;
 	padding:14px 6px;
 	border-radius:12px;
-	background:rgba(255,255,255,0.02);
-	border:1px solid transparent;
+	background: rgba(91,155,213,0.10);
+	border:1px solid rgba(91,155,213,0.25);
 	transition:all .25s ease;
 }
 .tech-tile:hover{
-	background:rgba(255,255,255,0.05);
-	border-color:var(--border-dark);
+	background:rgba(91,155,213,0.20);
+	border-color:rgba(91,155,213,0.55);
 	transform:translateY(-3px);
+	box-shadow: 0 4px 16px rgba(91,155,213,0.18);
 }
 .tech-tile img, .tech-tile i, .tech-tile .fa-icon{ width:32px; height:32px; object-fit:contain; font-size:24px; color:#fff; }
 .tech-tile img {
