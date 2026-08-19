@@ -316,16 +316,24 @@
     window.addEventListener('scroll', setActive);
     setActive();
 
-    // Reveal on scroll (IntersectionObserver)
+    // Reveal on scroll (IntersectionObserver) with per-sibling stagger
     const revealEls = document.querySelectorAll('.reveal');
     const io = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
+          // Compute stagger based on sibling index (skip if CSS already handles it)
+          const siblings = Array.from(entry.target.parentElement?.children || []);
+          const idx = siblings.indexOf(entry.target);
+          // Only apply JS stagger if no CSS delay already set (CSS handles grid children)
+          const cssDel = parseFloat(getComputedStyle(entry.target).transitionDelay) || 0;
+          if (cssDel === 0 && idx > 0) {
+            entry.target.style.transitionDelay = `${idx * 0.07}s`;
+          }
           entry.target.classList.add('is-visible');
           io.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+    }, { threshold: 0.10, rootMargin: '0px 0px -50px 0px' });
     revealEls.forEach(el => io.observe(el));
 
     // Click Highlight Animation for Experience Items
@@ -402,7 +410,7 @@
 
   async function bootstrap() {
     try {
-      const res = await fetch('data.json?v=3');
+      const res = await fetch('data.json?v=4');
       if (!res.ok) throw new Error(`Failed to load data.json (${res.status})`);
       const data = await res.json();
 
@@ -577,13 +585,18 @@
       H = canvas.height = rect.height || window.innerHeight;
     }
 
-    /* Define 4 large aurora orbs */
+    /* Accent RGB values for dual-tone aurora */
+    const ACCENT_ORB  = '91,155,213';   /* blue */
+    const VIOLET_ORB  = '167,139,250';  /* violet */
+
+    /* Define aurora orbs — mix of blue and violet for depth */
     const orbs = [
-      /* x%,  y%,  r%,  speed,  phase,   alpha, hue-shift */
-      { xP: 0.18, yP: 0.28, rP: 0.45, spd: 0.00018, ph: 0.0,              a: 0.13 },
-      { xP: 0.72, yP: 0.15, rP: 0.38, spd: 0.00024, ph: Math.PI * 0.7,   a: 0.10 },
-      { xP: 0.55, yP: 0.75, rP: 0.32, spd: 0.00031, ph: Math.PI * 1.3,   a: 0.08 },
-      { xP: 0.88, yP: 0.55, rP: 0.28, spd: 0.00020, ph: Math.PI * 1.85,  a: 0.09 },
+      /* xP, yP, rP, spd, ph, alpha, color */
+      { xP:0.18, yP:0.28, rP:0.45, spd:0.00018, ph:0.0,             a:0.13, c:ACCENT_ORB  },
+      { xP:0.72, yP:0.15, rP:0.38, spd:0.00024, ph:Math.PI*0.7,    a:0.10, c:ACCENT_ORB  },
+      { xP:0.55, yP:0.75, rP:0.32, spd:0.00031, ph:Math.PI*1.3,    a:0.07, c:VIOLET_ORB  },
+      { xP:0.88, yP:0.55, rP:0.28, spd:0.00020, ph:Math.PI*1.85,   a:0.09, c:VIOLET_ORB  },
+      { xP:0.35, yP:0.60, rP:0.22, spd:0.00027, ph:Math.PI*0.4,    a:0.06, c:ACCENT_ORB  },
     ];
 
     function draw() {
@@ -598,11 +611,12 @@
 
         /* Pulsing alpha */
         const alpha = orb.a * (0.8 + 0.2 * Math.sin(t * 0.0006 + orb.ph));
+        const orbColor = orb.c || ACCENT;
 
         const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
-        grad.addColorStop(0,   `rgba(${ACCENT}, ${alpha})`);
-        grad.addColorStop(0.4, `rgba(${ACCENT}, ${alpha * 0.5})`);
-        grad.addColorStop(1,   `rgba(${ACCENT}, 0)`);
+        grad.addColorStop(0,   `rgba(${orbColor}, ${alpha})`);
+        grad.addColorStop(0.4, `rgba(${orbColor}, ${alpha * 0.45})`);
+        grad.addColorStop(1,   `rgba(${orbColor}, 0)`);
 
         ctx.fillStyle = grad;
         ctx.beginPath();
