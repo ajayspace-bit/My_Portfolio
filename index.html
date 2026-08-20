@@ -31,7 +31,7 @@
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
-  <link rel="stylesheet" href="style.css?v=4">
+  <link rel="stylesheet" href="style.css?v=5">
 </head>
 
 <body>
@@ -57,35 +57,23 @@
   <section class="hero" id="home">
     <canvas id="heroCanvas" aria-hidden="true"></canvas>
     <div class="hero-container">
-      <div class="hero-layout"
-        style="display: flex; align-items: center; justify-content: flex-start; gap: 48px; flex-wrap: wrap; width: 100%;">
-        <div class="hero-inner" style="text-align: left; max-width: 820px; flex: 1.5; min-width: 320px;">
+      <div class="hero-layout">
+        <div class="hero-inner">
 
           <!-- Top Badge -->
-          <div class="hero-badge" id="heroBadge"
-            style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; border-radius: 100px; background: rgba(91,155,213,0.1); border: 1px solid rgba(91,155,213,0.25); font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: var(--accent); margin-bottom: 28px;">
-            <span
-              style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite;"></span>
+          <div class="hero-badge" id="heroBadge">
+            <span class="hero-badge-dot"></span>
             <span id="heroBadgeText"></span>
           </div>
 
-          <h1 id="heroHeading"
-            style="text-align: left; font-size: clamp(38px, 5.5vw, 56px); font-weight: 900; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 24px;">
-          </h1>
+          <h1 id="heroHeading"></h1>
 
-          <div class="hero-desc-container"
-            style="max-width: 720px; margin-bottom: 36px; display: flex; flex-direction: column; gap: 16px; text-align: left;">
-            <p class="lede" id="heroDesc"
-              style="margin: 0; font-size: clamp(16px, 1.6vw, 19px); line-height: 1.6; color: var(--text-dark-heading);">
-            </p>
-            <p class="lede" id="heroSubDesc"
-              style="margin: 0; font-size: clamp(14px, 1.4vw, 17px); line-height: 1.6; color: var(--text-dark-muted); opacity: 0.95;">
-            </p>
+          <div class="hero-desc-container">
+            <p class="lede" id="heroDesc"></p>
+            <p class="lede hero-sub" id="heroSubDesc"></p>
           </div>
 
-          <div class="hero-actions"
-            style="justify-content: flex-start; margin-bottom: 0; display: flex; gap: 16px; flex-wrap: wrap;"
-            id="heroActions">
+          <div class="hero-actions" id="heroActions">
             <!-- Rendered by JS -->
           </div>
 
@@ -224,7 +212,7 @@
   </div>
 
   <button class="to-top" id="toTop" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up"></i></button>
-  <script src="script.js?v=4"></script>
+  <script src="script.js?v=5"></script>
 
 </body>
 
