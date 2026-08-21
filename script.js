@@ -109,13 +109,83 @@
         ${esc(hero.ctaSecondary.label)}</a>
     `;
 
+    // ── Render stats bar ──
+    if (hero.stats && hero.stats.length) {
+      const statsEl = document.getElementById('heroStats');
+      if (statsEl) {
+        statsEl.innerHTML = hero.stats.map(s => `
+          <div class="stat-item">
+            <i class="${esc(s.icon)}"></i>
+            <span class="stat-num" data-target="${s.value}" data-suffix="${esc(s.suffix || '')}">0${esc(s.suffix || '')}</span>
+            <span class="stat-label">${esc(s.label)}</span>
+          </div>
+        `).join('');
+      }
+    }
+
+    // ── Hero image ──
     const imgWrapper = document.getElementById('heroImageWrapper');
     if (imgWrapper && hero.image) {
       imgWrapper.innerHTML = `
         <div class="hero-image-card">
-          <img src="${esc(hero.image)}" alt="Ajay S">
+          <img src="${esc(hero.image)}" alt="Ajay S" loading="eager">
         </div>
       `;
+      // Trigger slide-in after a short paint delay
+      requestAnimationFrame(() => {
+        setTimeout(() => imgWrapper.classList.add('slide-in'), 120);
+      });
+    }
+
+    // ── Typewriter role animation ──
+    if (hero.roles && hero.roles.length) {
+      const subDescEl = document.getElementById('heroSubDesc');
+      if (subDescEl) {
+        // Wrap content: prepend a role span + cursor
+        const roleSpan = document.createElement('span');
+        roleSpan.id = 'heroRole';
+        roleSpan.style.cssText = 'font-weight:700; color:var(--accent);';
+        const cursor = document.createElement('span');
+        cursor.className = 'typewriter-cursor';
+        const badgeEl = document.getElementById('heroBadge');
+        if (badgeEl) {
+          // Insert role + cursor right before the badge, as a separate pill
+          const roleWrap = document.createElement('div');
+          roleWrap.style.cssText = 'display:inline-flex; align-items:center; gap:6px; font-family:var(--font-mono); font-size:14px; margin-bottom:20px; color:var(--text-dark-muted);';
+          roleWrap.textContent = 'Role: ';
+          roleWrap.appendChild(roleSpan);
+          roleWrap.appendChild(cursor);
+          badgeEl.parentElement.insertBefore(roleWrap, badgeEl);
+        }
+
+        let roleIdx = 0, charIdx = 0, deleting = false;
+        const ROLES = hero.roles;
+        const TYPE_SPEED = 80, DELETE_SPEED = 45, PAUSE = 1800;
+
+        function tick() {
+          const current = ROLES[roleIdx];
+          if (deleting) {
+            charIdx--;
+            roleSpan.textContent = current.slice(0, charIdx);
+            if (charIdx === 0) {
+              deleting = false;
+              roleIdx = (roleIdx + 1) % ROLES.length;
+              setTimeout(tick, 380);
+              return;
+            }
+            setTimeout(tick, DELETE_SPEED);
+          } else {
+            charIdx++;
+            roleSpan.textContent = current.slice(0, charIdx);
+            if (charIdx === current.length) {
+              setTimeout(() => { deleting = true; tick(); }, PAUSE);
+              return;
+            }
+            setTimeout(tick, TYPE_SPEED);
+          }
+        }
+        setTimeout(tick, 600);
+      }
     }
   }
 
@@ -182,10 +252,15 @@
     grid.innerHTML = projects.items.map(p => {
       let thumbHTML = '';
       if (p.image) {
-        thumbHTML = `<img src="${esc(p.image)}" alt="${esc(p.title)}">`;
+        thumbHTML = `<img src="${esc(p.image)}" alt="${esc(p.title)}" loading="lazy">`;
       } else if (p.icon) {
         thumbHTML = `<i class="${esc(p.icon)}"></i>`;
       }
+
+      const demoBtn = (p.demo && p.demo.trim() !== '' && p.demo !== '#')
+        ? `<a href="${esc(p.demo)}" class="project-link demo-link" target="_blank" rel="noopener" aria-label="Live demo of ${esc(p.title)}"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>`
+        : '';
+
       return `
         <div class="project-card reveal">
           <div class="project-thumb">${thumbHTML}</div>
@@ -193,7 +268,10 @@
             <h3>${esc(p.title)}</h3>
             <p>${esc(p.description)}</p>
             <div class="tag-row">${p.tags.map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div>
-            <a href="${esc(p.github)}" class="project-link"><i class="fa-brands fa-github"></i> View on GitHub →</a>
+            <div class="project-link-row">
+              <a href="${esc(p.github)}" class="project-link" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> View on GitHub →</a>
+              ${demoBtn}
+            </div>
           </div>
         </div>
       `;
@@ -240,6 +318,18 @@
 
   function renderContact(contact) {
     setText('contactEyebrow', contact.eyebrow);
+
+    // ── Availability badge ──
+    const availBadge = document.getElementById('contactAvailBadge');
+    if (availBadge && contact.availability) {
+      availBadge.innerHTML = `
+        <div class="avail-badge">
+          <span class="avail-dot"></span>
+          <span class="avail-badge-text">${esc(contact.availability)}</span>
+          ${contact.availabilityNote ? `<span class="avail-badge-note">— ${esc(contact.availabilityNote)}</span>` : ''}
+        </div>
+      `;
+    }
 
     const headingEl = document.getElementById('contactHeadingEl');
     headingEl.innerHTML = `
@@ -321,10 +411,8 @@
     const io = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          // Compute stagger based on sibling index (skip if CSS already handles it)
           const siblings = Array.from(entry.target.parentElement?.children || []);
           const idx = siblings.indexOf(entry.target);
-          // Only apply JS stagger if no CSS delay already set (CSS handles grid children)
           const cssDel = parseFloat(getComputedStyle(entry.target).transitionDelay) || 0;
           if (cssDel === 0 && idx > 0) {
             entry.target.style.transitionDelay = `${idx * 0.07}s`;
@@ -335,6 +423,48 @@
       });
     }, { threshold: 0.10, rootMargin: '0px 0px -50px 0px' });
     revealEls.forEach(el => io.observe(el));
+
+    // ── Animated stat number counter ──
+    const statNums = document.querySelectorAll('.stat-num[data-target]');
+    if (statNums.length) {
+      const countObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target;
+          const target = parseInt(el.dataset.target, 10);
+          const suffix = el.dataset.suffix || '';
+          const duration = 1400;
+          const step = Math.max(1, Math.round(target / (duration / 16)));
+          let current = 0;
+          const timer = setInterval(() => {
+            current = Math.min(current + step, target);
+            el.textContent = current + suffix;
+            if (current >= target) clearInterval(timer);
+          }, 16);
+          countObserver.unobserve(el);
+        });
+      }, { threshold: 0.5 });
+      statNums.forEach(el => countObserver.observe(el));
+    }
+
+    // ── 3D Card Tilt ──
+    const tiltCards = document.querySelectorAll('.card-light, .service-card, .project-card');
+    tiltCards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const cx = rect.left + rect.width  / 2;
+        const cy = rect.top  + rect.height / 2;
+        const dx = (e.clientX - cx) / (rect.width  / 2);
+        const dy = (e.clientY - cy) / (rect.height / 2);
+        // Clamp to ±12 degrees
+        const rotX = (-dy * 7).toFixed(2);
+        const rotY = ( dx * 7).toFixed(2);
+        card.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-5px)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
 
     // Click Highlight Animation for Experience Items
     const expTimeline = document.getElementById('expTimeline');
@@ -410,7 +540,7 @@
 
   async function bootstrap() {
     try {
-      const res = await fetch('data.json?v=5');
+      const res = await fetch('data.json?v=6');
       if (!res.ok) throw new Error(`Failed to load data.json (${res.status})`);
       const data = await res.json();
 

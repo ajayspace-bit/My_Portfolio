@@ -30,10 +30,17 @@
     "badge": "Focus: Scalable & Production-Ready AI",
     "headingLine1": "Building AI That Solves",
     "headingLine2": "Real Problems, Not Just Demos.",
+    "roles": ["AI Engineer", "LLM Developer", "ML Architect", "Gen AI Builder"],
     "description": "I'm Ajay S, an AI Engineer focused on building intelligent, scalable, and production-ready AI applications. I create AI systems that automate workflows, empower decision-making, and transform complex ideas into powerful digital solutions.",
     "subDescription": "From autonomous AI agents and LLM-powered applications to machine learning models and modern web platforms, I build solutions designed for real-world impact.",
     "ctaPrimary": { "label": "Explore My Projects", "href": "#projects" },
-    "ctaSecondary": { "label": "Let's Connect", "href": "#contact" }
+    "ctaSecondary": { "label": "Let's Connect", "href": "#contact" },
+    "stats": [
+      { "icon": "fa-solid fa-briefcase", "value": 2,  "suffix": "+", "label": "Years Experience" },
+      { "icon": "fa-solid fa-code-branch", "value": 10, "suffix": "+", "label": "Projects Built" },
+      { "icon": "fa-solid fa-robot",       "value": 18, "suffix": "+", "label": "AI Tools Mastered" },
+      { "icon": "fa-solid fa-certificate", "value": 3,  "suffix": "+", "label": "Certifications" }
+    ]
   },
 
   "about": {
@@ -159,14 +166,16 @@
         "title": "Bank Personal Loan Prediction",
         "description": "Developed a machine learning model to predict personal loan acceptance using customer demographic and financial data. Performed data preprocessing, exploratory data analysis, feature engineering, and model evaluation to improve prediction accuracy. Enabled data-driven decision-making by identifying customers with a high likelihood of accepting personal loan offers.",
         "tags": ["Python", "Machine Learning", "Scikit-Learn", "EDA"],
-        "github": "#"
+        "github": "#",
+        "demo": ""
       },
       {
         "image": "assets/images/project_real_estate.png",
         "title": "Chennai Real Estate Price Prediction Using Machine Learning",
         "description": "Built a machine learning model to predict Chennai property prices using location and property features. Applied data preprocessing, feature selection, and model evaluation to improve accuracy and deliver useful price estimation insights.",
         "tags": ["Python", "Machine Learning", "Regression", "Data Preprocessing"],
-        "github": "#"
+        "github": "#",
+        "demo": ""
       }
     ]
   },
@@ -246,7 +255,9 @@
     "heading": "Want to collaborate?",
     "emailLinkText": "Email me!",
     "email": "contact.ajayspace@gmail.com",
-    "location": "India",
+    "location": "Tamil Nadu, India",
+    "availability": "Open to Work",
+    "availabilityNote": "Available for freelance & full-time roles",
     "socialLabel": "Follow Me",
     "socials": [
       { "icon": "fa-brands fa-linkedin-in", "label": "LinkedIn", "href": "#" },
