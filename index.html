@@ -31,36 +31,53 @@
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
-  <link rel="stylesheet" href="style.css?v=6">
+  <link rel="stylesheet" href="style.css?v=7">
 </head>
 
 <body>
 
-  <!-- ============ GLOBAL ANIMATED BACKGROUND CANVAS ============ -->
+  <!-- ============ BACKGROUND LAYERS ============ -->
+  <div class="bg-grid"></div>
+  <div class="bg-noise"></div>
   <canvas id="bgCanvas" aria-hidden="true"></canvas>
 
-  <!-- ============ NAVBAR ============ -->
-  <nav class="navbar" id="navbar">
-    <div class="container">
-      <a href="#home" class="logo" id="navLogo"></a>
-      <ul class="nav-links" id="navLinks">
+  <!-- ============ CUSTOM CURSOR ============ -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+  <div class="cursor-label" id="cursorLabel">VIEW</div>
+
+  <!-- ============ NAVBAR — floating pill ============ -->
+  <div class="navbar-wrap">
+    <div class="navbar-wrap-inner">
+      <nav class="navbar" id="navbar">
+        <a href="#home" class="nav-logo" id="navLogo"></a>
+        <ul class="nav-links" id="navLinks">
+          <!-- Rendered by JS -->
+        </ul>
+        <div class="nav-cta">
+          <button class="nav-resume-btn" id="navResume">RESUME</button>
+          <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <path d="M2 5H16M2 9H16M2 13H16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </nav>
+      <div class="nav-mobile" id="navMobile">
         <!-- Rendered by JS -->
-      </ul>
-      <div class="nav-cta">
-        <button class="btn btn-primary" id="navResume">Resume</button>
-        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><i class="fa-solid fa-bars"></i></button>
       </div>
     </div>
-  </nav>
+  </div>
 
   <!-- ============ HERO ============ -->
   <section class="hero" id="home">
     <canvas id="heroCanvas" aria-hidden="true"></canvas>
     <div class="hero-container">
       <div class="hero-layout">
+
+        <!-- Left: Text content -->
         <div class="hero-inner">
 
-          <!-- Top Badge -->
           <div class="hero-badge" id="heroBadge">
             <span class="hero-badge-dot"></span>
             <span id="heroBadgeText"></span>
@@ -82,13 +99,37 @@
           </div>
 
         </div>
-        <div class="hero-image-wrapper" id="heroImageWrapper"></div>
+
+        <!-- Right: 3D hero card -->
+        <div class="hero-stage">
+          <div class="hero-card-3d" id="heroCard3d">
+            <div class="hero-layer hero-layer-back"></div>
+            <div class="hero-layer hero-layer-mid">
+              <div class="hero-avatar" id="heroAvatarSlot">
+                <div class="orbit orbit-1"></div>
+                <div class="orbit orbit-2"></div>
+                <!-- Photo injected by JS -->
+              </div>
+              <div class="hero-name" id="heroCardName">Ajay S</div>
+              <div class="hero-role-tag">AI ENGINEER</div>
+              <div class="hero-status-row">
+                <span class="status-dot"></span>AVAILABLE FOR OPPORTUNITIES
+              </div>
+            </div>
+            <div class="hero-layer-front">
+              <div class="hf-row"><span class="k">SPEC</span><span class="v">AI / ML / GENAI</span></div>
+              <div class="hf-row"><span class="k">STACK</span><span class="v">PY · LANGCHAIN</span></div>
+              <div class="hf-row"><span class="k">GRAD</span><span class="v">2026</span></div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 
   <!-- ============ ABOUT ============ -->
-  <section class="light-section" id="about">
+  <section class="dark-section" id="about">
     <div class="container">
       <div class="section-head reveal">
         <div class="eyebrow" id="aboutEyebrow"></div>
@@ -117,11 +158,35 @@
       <div class="skills-grid" id="skillsGrid">
         <!-- Rendered by JS -->
       </div>
+
+      <!-- Gen AI Network Graph -->
+      <div class="network-panel card reveal" style="margin-top:28px;">
+        <div class="network-panel-head">
+          <h3>Generative AI — System Map</h3>
+          <span class="network-hud"><span class="net-hud-dot"></span>HOVER TO TRACE</span>
+        </div>
+        <div class="network-wrap" id="networkWrap">
+          <svg class="network-svg" id="networkSvg"></svg>
+          <div class="net-center" id="netCenter">GENERATIVE<br>AI</div>
+          <div class="net-node" data-i="0">LLMs</div>
+          <div class="net-node" data-i="1">LangChain</div>
+          <div class="net-node" data-i="2">LangGraph</div>
+          <div class="net-node" data-i="3">AI Agents</div>
+          <div class="net-node" data-i="4">RAG</div>
+          <div class="net-node" data-i="5">Vector DBs</div>
+          <div class="net-node" data-i="6">Embeddings</div>
+          <div class="net-node" data-i="7">Prompt Eng.</div>
+          <div class="net-node" data-i="8">Tool Calling</div>
+          <div class="net-node" data-i="9">API Integration</div>
+          <div class="net-node" data-i="10">Hugging Face</div>
+          <div class="net-node" data-i="11">AI Observability</div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- ============ PROJECTS ============ -->
-  <section class="light-section" id="projects">
+  <section class="dark-section" id="projects">
     <div class="container">
       <div class="section-head reveal">
         <div class="eyebrow" id="projectsEyebrow"></div>
@@ -149,7 +214,7 @@
   </section>
 
   <!-- ============ EXPERIENCE ============ -->
-  <section class="light-section" id="experience">
+  <section class="dark-section" id="experience">
     <div class="container">
       <div class="section-head reveal">
         <div class="eyebrow" id="expEyebrow"></div>
@@ -175,7 +240,7 @@
       <div class="reveal" style="max-width: 600px; margin: 0 auto;">
         <div id="contactAvailBadge" style="margin-bottom: 28px;"></div>
 
-        <div class="contact-info-card" id="contactInfoCard" style="text-align: left; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 40px; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.2);">
+        <div class="contact-info-card" id="contactInfoCard" style="text-align: left;">
           <!-- Rendered by JS -->
         </div>
 
@@ -189,7 +254,17 @@
     </div>
   </section>
 
-
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="container">
+      <p>© 2026 Ajay S — Built with passion &amp; code</p>
+      <div class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
 
   <!-- ============ RESUME MODAL ============ -->
   <div id="resumeModal" class="pdf-modal-overlay" aria-hidden="true" role="dialog">
@@ -218,7 +293,7 @@
   </div>
 
   <button class="to-top" id="toTop" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up"></i></button>
-  <script src="script.js?v=6"></script>
+  <script src="script.js?v=7"></script>
 
 </body>
 

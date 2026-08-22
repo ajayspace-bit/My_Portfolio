@@ -79,12 +79,24 @@
 
   function renderNav(nav) {
     setText('navLogo', nav.logo);
-    const linksEl = document.getElementById('navLinks');
-    linksEl.innerHTML = nav.links.map(l =>
-      `<li><a href="${esc(l.href)}" class="nav-link">${esc(l.label)}</a></li>`
-    ).join('');
 
-    // Store the resume PDF path as a data attribute on the button
+    // Desktop links
+    const linksEl = document.getElementById('navLinks');
+    if (linksEl) {
+      linksEl.innerHTML = nav.links.map(l =>
+        `<li><a href="${esc(l.href)}" class="nav-link">${esc(l.label)}</a></li>`
+      ).join('');
+    }
+
+    // Mobile nav links
+    const mobileEl = document.getElementById('navMobile');
+    if (mobileEl) {
+      mobileEl.innerHTML = nav.links.map(l =>
+        `<a href="${esc(l.href)}" class="nav-mobile-link">${esc(l.label)}</a>`
+      ).join('');
+    }
+
+    // Store resume PDF path
     const resumeBtn = document.getElementById('navResume');
     if (resumeBtn) resumeBtn.dataset.resumeHref = nav.resumeLink;
 
@@ -102,14 +114,16 @@
     setText('heroSubDesc', hero.subDescription);
 
     const actionsEl = document.getElementById('heroActions');
-    actionsEl.innerHTML = `
-      <a href="${esc(hero.ctaPrimary.href)}" class="btn btn-primary" style="padding: 15px 30px; font-size: 15px;">
-        ${esc(hero.ctaPrimary.label)}</a>
-      <a href="${esc(hero.ctaSecondary.href)}" class="btn btn-outline" style="padding: 15px 30px; font-size: 15px;">
-        ${esc(hero.ctaSecondary.label)}</a>
-    `;
+    if (actionsEl) {
+      actionsEl.innerHTML = `
+        <a href="${esc(hero.ctaPrimary.href)}" class="btn btn-primary" style="padding: 15px 30px; font-size: 15px;">
+          ${esc(hero.ctaPrimary.label)}</a>
+        <a href="${esc(hero.ctaSecondary.href)}" class="btn btn-outline" style="padding: 15px 30px; font-size: 15px;">
+          ${esc(hero.ctaSecondary.label)}</a>
+      `;
+    }
 
-    // ── Render stats bar ──
+    // ── Stats bar ──
     if (hero.stats && hero.stats.length) {
       const statsEl = document.getElementById('heroStats');
       if (statsEl) {
@@ -123,19 +137,21 @@
       }
     }
 
-    // ── Hero image ──
-    const imgWrapper = document.getElementById('heroImageWrapper');
-    if (imgWrapper && hero.image) {
-      imgWrapper.innerHTML = `
-        <div class="hero-image-card">
-          <img src="${esc(hero.image)}" alt="Ajay S" loading="eager">
-        </div>
-      `;
-      // Trigger slide-in after a short paint delay
-      requestAnimationFrame(() => {
-        setTimeout(() => imgWrapper.classList.add('slide-in'), 120);
-      });
+    // ── Inject photo into 3D hero card ──
+    const avatarSlot = document.getElementById('heroAvatarSlot');
+    if (avatarSlot && hero.image) {
+      // Preserve orbit divs, insert photo behind them
+      const img = document.createElement('img');
+      img.src = hero.image;
+      img.alt = 'Ajay S';
+      img.loading = 'eager';
+      // Insert before the orbit divs so they layer on top
+      avatarSlot.insertBefore(img, avatarSlot.firstChild);
     }
+
+    // Legacy hero image wrapper — hidden by CSS, no-op
+    const imgWrapper = document.getElementById('heroImageWrapper');
+    if (imgWrapper) imgWrapper.style.display = 'none';
 
     // ── Typewriter role animation ──
     if (hero.roles && hero.roles.length) {
@@ -194,28 +210,32 @@
     setText('aboutHeading', about.heading);
     setText('aboutIntro', about.intro);
 
-    // Cards
+    // Dark cards (new design)
     const grid = document.getElementById('aboutGrid');
-    grid.innerHTML = about.cards.map(c => `
-      <div class="card-light reveal">
-        <div class="card-icon"><i class="${esc(c.icon)}"></i></div>
-        <h3>${esc(c.title)}</h3>
-        <p>${esc(c.text)}</p>
-      </div>
-    `).join('');
+    if (grid) {
+      grid.innerHTML = about.cards.map(c => `
+        <div class="card-dark reveal">
+          <div class="card-icon"><i class="${esc(c.icon)}"></i></div>
+          <h3>${esc(c.title)}</h3>
+          <p>${esc(c.text)}</p>
+        </div>
+      `).join('');
+    }
 
     // Education
     const edu = about.education;
     const eduCard = document.getElementById('eduCard');
-    eduCard.innerHTML = `
-      <div class="edu-icon"><i class="${esc(edu.icon)}"></i></div>
-      <div class="edu-body">
-        <h3>${esc(edu.degree)}</h3>
-        <div class="edu-inst">${esc(edu.institution)}</div>
-        <div class="edu-dur">${esc(edu.duration)}</div>
-        <div class="edu-note">${esc(edu.note)}</div>
-      </div>
-    `;
+    if (eduCard) {
+      eduCard.innerHTML = `
+        <div class="edu-icon"><i class="${esc(edu.icon)}"></i></div>
+        <div class="edu-body">
+          <h3>${esc(edu.degree)}</h3>
+          <div class="edu-inst">${esc(edu.institution)}</div>
+          <div class="edu-dur">${esc(edu.duration)}</div>
+          <div class="edu-note">${esc(edu.note)}</div>
+        </div>
+      `;
+    }
   }
 
   function renderSkills(skills) {
@@ -298,6 +318,7 @@
     setText('expHeading', exp.heading);
 
     const timeline = document.getElementById('expTimeline');
+    if (!timeline) return;
     timeline.innerHTML = exp.items.map(e => {
       let detailsHTML = '';
       if (e.bullets && e.bullets.length > 0) {
@@ -306,10 +327,11 @@
         detailsHTML = `<p>${esc(e.description)}</p>`;
       }
       return `
-        <div class="timeline-item reveal">
-          <div class="timeline-dot"></div>
+        <div class="timeline-item reveal" tabindex="0">
+          <div class="tl-point"></div>
+          <div class="tl-year">${esc(e.duration)}</div>
           <h3>${esc(e.title)}</h3>
-          <div class="role-meta">${esc(e.company)} <span class="dur">${esc(e.duration)}</span></div>
+          <div class="tl-company">${esc(e.company)}</div>
           ${detailsHTML}
         </div>
       `;
@@ -372,25 +394,32 @@
 
   function initBehavior() {
     const navbar = document.getElementById('navbar');
-    const toTop = document.getElementById('toTop');
+    const toTop  = document.getElementById('toTop');
 
+    // ── Scroll: navbar + scroll-to-top ──
     window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 40);
-      toTop.classList.toggle('show', window.scrollY > 600);
+      if (navbar) navbar.classList.toggle('scrolled', window.scrollY > 40);
+      if (toTop)  toTop.classList.toggle('show', window.scrollY > 600);
     });
 
+    // ── Mobile nav toggle (new floating pill design) ──
     const navToggle = document.getElementById('navToggle');
-    const navLinks = document.getElementById('navLinks');
-    navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
-    navLinks.querySelectorAll('a').forEach(a =>
-      a.addEventListener('click', () => navLinks.classList.remove('open'))
-    );
+    const navMobile = document.getElementById('navMobile');
+    if (navToggle && navMobile) {
+      navToggle.addEventListener('click', () => navMobile.classList.toggle('open'));
+      navMobile.querySelectorAll('a').forEach(a =>
+        a.addEventListener('click', () => navMobile.classList.remove('open'))
+      );
+    }
 
-    toTop.addEventListener('click', () =>
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    );
+    // ── Scroll to top ──
+    if (toTop) {
+      toTop.addEventListener('click', () =>
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      );
+    }
 
-    // Active nav highlighting
+    // ── Active nav highlighting ──
     const sections = document.querySelectorAll('section[id]');
     const navItems = document.querySelectorAll('.nav-link');
     const setActive = () => {
@@ -406,7 +435,7 @@
     window.addEventListener('scroll', setActive);
     setActive();
 
-    // Reveal on scroll (IntersectionObserver) with per-sibling stagger
+    // ── Reveal on scroll ──
     const revealEls = document.querySelectorAll('.reveal');
     const io = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -424,31 +453,30 @@
     }, { threshold: 0.10, rootMargin: '0px 0px -50px 0px' });
     revealEls.forEach(el => io.observe(el));
 
-    // ── Animated stat number counter ──
+    // ── Animated stat counters ──
     const statNums = document.querySelectorAll('.stat-num[data-target]');
     if (statNums.length) {
-      const countObserver = new IntersectionObserver((entries) => {
+      const countObs = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (!entry.isIntersecting) return;
-          const el = entry.target;
+          const el     = entry.target;
           const target = parseInt(el.dataset.target, 10);
           const suffix = el.dataset.suffix || '';
-          const duration = 1400;
-          const step = Math.max(1, Math.round(target / (duration / 16)));
-          let current = 0;
-          const timer = setInterval(() => {
+          const step   = Math.max(1, Math.round(target / (1400 / 16)));
+          let current  = 0;
+          const timer  = setInterval(() => {
             current = Math.min(current + step, target);
             el.textContent = current + suffix;
             if (current >= target) clearInterval(timer);
           }, 16);
-          countObserver.unobserve(el);
+          countObs.unobserve(el);
         });
       }, { threshold: 0.5 });
-      statNums.forEach(el => countObserver.observe(el));
+      statNums.forEach(el => countObs.observe(el));
     }
 
-    // ── 3D Card Tilt ──
-    const tiltCards = document.querySelectorAll('.card-light, .service-card, .project-card');
+    // ── 3D card tilt (dark cards + service/project cards) ──
+    const tiltCards = document.querySelectorAll('.card-dark, .service-card, .project-card, .timeline-item');
     tiltCards.forEach(card => {
       card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
@@ -456,33 +484,142 @@
         const cy = rect.top  + rect.height / 2;
         const dx = (e.clientX - cx) / (rect.width  / 2);
         const dy = (e.clientY - cy) / (rect.height / 2);
-        // Clamp to ±12 degrees
-        const rotX = (-dy * 7).toFixed(2);
-        const rotY = ( dx * 7).toFixed(2);
+        const rotX = (-dy * 6).toFixed(2);
+        const rotY = ( dx * 6).toFixed(2);
         card.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-5px)`;
       });
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
-      });
+      card.addEventListener('mouseleave', () => { card.style.transform = ''; });
     });
 
-    // Click Highlight Animation for Experience Items
+    // ── Hero 3D card parallax tilt ──
+    const heroCard = document.getElementById('heroCard3d');
+    if (heroCard) {
+      const stage = heroCard.parentElement;
+      stage.addEventListener('mousemove', (e) => {
+        const rect = stage.getBoundingClientRect();
+        const cx = rect.left + rect.width  / 2;
+        const cy = rect.top  + rect.height / 2;
+        const dx = (e.clientX - cx) / (rect.width  / 2);
+        const dy = (e.clientY - cy) / (rect.height / 2);
+        heroCard.style.transform =
+          `rotateY(${(dx * 14).toFixed(2)}deg) rotateX(${(-dy * 10).toFixed(2)}deg)`;
+      });
+      stage.addEventListener('mouseleave', () => {
+        heroCard.style.transform = 'rotateY(0deg) rotateX(0deg)';
+      });
+    }
+
+    // ── Custom cursor ──
+    const dot   = document.getElementById('cursorDot');
+    const ring  = document.getElementById('cursorRing');
+    const label = document.getElementById('cursorLabel');
+    if (dot && ring && window.matchMedia('(pointer:fine)').matches) {
+      let mx = -100, my = -100, rx = -100, ry = -100;
+      window.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; });
+
+      (function loop() {
+        // Ring lags behind dot for smooth trailing effect
+        rx += (mx - rx) * 0.12;
+        ry += (my - ry) * 0.12;
+        dot.style.left  = mx + 'px';
+        dot.style.top   = my + 'px';
+        ring.style.left = rx + 'px';
+        ring.style.top  = ry + 'px';
+        if (label) {
+          label.style.left = mx + 'px';
+          label.style.top  = my + 'px';
+        }
+        requestAnimationFrame(loop);
+      })();
+
+      // Card hover
+      document.querySelectorAll('.card-dark, .skill-cat, .project-card, .service-card, .timeline-item, .edu-card').forEach(el => {
+        el.addEventListener('mouseenter', () => ring.classList.add('hover-card'));
+        el.addEventListener('mouseleave', () => ring.classList.remove('hover-card'));
+      });
+      // Button hover
+      document.querySelectorAll('.btn, .nav-resume-btn, .to-top, .social-btn').forEach(el => {
+        el.addEventListener('mouseenter', () => { ring.classList.add('hover-btn'); dot.classList.add('hover-btn'); });
+        el.addEventListener('mouseleave', () => { ring.classList.remove('hover-btn'); dot.classList.remove('hover-btn'); });
+      });
+      // Link hover (show VIEW label)
+      document.querySelectorAll('.project-link, a[target="_blank"]').forEach(el => {
+        el.addEventListener('mouseenter', () => { if (label) label.classList.add('show'); });
+        el.addEventListener('mouseleave', () => { if (label) label.classList.remove('show'); });
+      });
+    }
+
+    // ── Generative AI Network Graph ──
+    (function initNetworkGraph() {
+      const wrap   = document.getElementById('networkWrap');
+      const svg    = document.getElementById('networkSvg');
+      const center = document.getElementById('netCenter');
+      const nodes  = document.querySelectorAll('.net-node');
+      if (!wrap || !svg || !center || !nodes.length) return;
+
+      // Skip on small screens (nodes are static)
+      if (window.innerWidth < 760) return;
+
+      function layout() {
+        const wRect = wrap.getBoundingClientRect();
+        const cRect = center.getBoundingClientRect();
+        const wW = wRect.width,  wH = wRect.height;
+        const cx = wW / 2,       cy = wH / 2;
+        const rx = Math.min(wW, wH) * 0.38;
+        const ry = Math.min(wW, wH) * 0.33;
+        const total = nodes.length;
+
+        // Clear old lines
+        svg.innerHTML = '';
+        svg.setAttribute('viewBox', `0 0 ${wW} ${wH}`);
+
+        nodes.forEach((node, i) => {
+          const angle = (i / total) * 2 * Math.PI - Math.PI / 2;
+          const nx = cx + rx * Math.cos(angle);
+          const ny = cy + ry * Math.sin(angle);
+
+          node.style.left = nx + 'px';
+          node.style.top  = ny + 'px';
+
+          // Draw line center → node
+          const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+          line.setAttribute('x1', cx);
+          line.setAttribute('y1', cy);
+          line.setAttribute('x2', nx);
+          line.setAttribute('y2', ny);
+          line.dataset.nodeIdx = i;
+          svg.appendChild(line);
+        });
+      }
+
+      layout();
+      window.addEventListener('resize', layout);
+
+      // Hover interaction: highlight connecting line
+      nodes.forEach((node, i) => {
+        node.addEventListener('mouseenter', () => {
+          node.classList.add('active');
+          const line = svg.querySelector(`line[data-node-idx="${i}"]`);
+          if (line) line.classList.add('active');
+        });
+        node.addEventListener('mouseleave', () => {
+          node.classList.remove('active');
+          const line = svg.querySelector(`line[data-node-idx="${i}"]`);
+          if (line) line.classList.remove('active');
+        });
+      });
+    })();
+
+    // ── Experience timeline click highlight ──
     const expTimeline = document.getElementById('expTimeline');
     if (expTimeline) {
       expTimeline.addEventListener('click', (e) => {
         const item = e.target.closest('.timeline-item');
         if (item) {
-          // Clear any existing timeout for this item if clicked again quickly
-          if (item.highlightTimeout) {
-            clearTimeout(item.highlightTimeout);
-          }
-          
+          if (item.highlightTimeout) clearTimeout(item.highlightTimeout);
           item.classList.remove('highlight-active');
-          // Trigger a reflow to restart the animation if clicked again
           void item.offsetWidth;
           item.classList.add('highlight-active');
-          
-          // Set a timeout to return to normal after 1.2s (matching the CSS animation duration)
           item.highlightTimeout = setTimeout(() => {
             item.classList.remove('highlight-active');
             item.highlightTimeout = null;
@@ -491,15 +628,14 @@
       });
     }
 
-    // PDF Resume Modal Behavior
-    const navResume = document.getElementById('navResume');
-    const resumeModal = document.getElementById('resumeModal');
+    // ── PDF Resume Modal ──
+    const navResume        = document.getElementById('navResume');
+    const resumeModal      = document.getElementById('resumeModal');
     const closeResumeModal = document.getElementById('closeResumeModal');
-    const resumeIframe = document.getElementById('resumeIframe');
+    const resumeIframe     = document.getElementById('resumeIframe');
 
     if (navResume && resumeModal && closeResumeModal && resumeIframe) {
       const openModal = () => {
-        // Get the PDF path from the data attribute set during renderNav
         const pdfSrc = navResume.dataset.resumeHref || 'ajay.pdf';
         if (!resumeIframe.src || resumeIframe.src === window.location.href) {
           resumeIframe.src = pdfSrc;
@@ -508,28 +644,16 @@
         resumeModal.setAttribute('aria-hidden', 'false');
         document.body.classList.add('modal-open');
       };
-
       const closeModal = () => {
         resumeModal.classList.remove('show');
         resumeModal.setAttribute('aria-hidden', 'true');
         document.body.classList.remove('modal-open');
       };
-
-      // navResume is a <button>, so no need to preventDefault for navigation
       navResume.addEventListener('click', openModal);
-
       closeResumeModal.addEventListener('click', closeModal);
-
-      resumeModal.addEventListener('click', (e) => {
-        if (e.target === resumeModal) {
-          closeModal();
-        }
-      });
-
+      resumeModal.addEventListener('click', (e) => { if (e.target === resumeModal) closeModal(); });
       window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && resumeModal.classList.contains('show')) {
-          closeModal();
-        }
+        if (e.key === 'Escape' && resumeModal.classList.contains('show')) closeModal();
       });
     }
   }
