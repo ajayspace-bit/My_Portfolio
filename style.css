@@ -485,6 +485,8 @@ section.dark-section {
   background: var(--accent);
   animation: pulse-anim 2s infinite;
   flex-shrink: 0;
+  align-self: center;
+  margin-top: 0;
 }
 @keyframes pulse-anim {
   0%   { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(91,155,213,0.7); }
