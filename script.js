@@ -165,49 +165,50 @@
         cursor.className = 'typewriter-cursor';
         const badgeEl = document.getElementById('heroBadge');
         if (badgeEl) {
-          // Build a single professional status bar: [Role: <typewriter>] | [● badge text]
-          const bar = document.createElement('div');
-          bar.id = 'heroStatusBar';
-          bar.style.cssText = [
+          // Wrapper: two pills stacked vertically
+          const wrapper = document.createElement('div');
+          wrapper.id = 'heroStatusBar';
+          wrapper.style.cssText = [
+            'display:inline-flex',
+            'flex-direction:column',
+            'align-items:flex-start',
+            'gap:10px',
+            'margin-bottom:28px',
+          ].join(';');
+
+          // ── Pill 1: Role + typewriter ──
+          const rolePill = document.createElement('div');
+          rolePill.style.cssText = [
             'display:inline-flex',
             'align-items:center',
-            'gap:0',
-            'margin-bottom:28px',
+            'gap:5px',
             'background:rgba(255,255,255,0.04)',
             'border:1px solid rgba(255,255,255,0.10)',
             'border-radius:100px',
-            'padding:7px 6px 7px 16px',
+            'padding:7px 18px',
             'font-family:var(--font-mono)',
             'font-size:12.5px',
-            'overflow:hidden',
+            'color:var(--text-dark-muted)',
+            'white-space:nowrap',
           ].join(';');
+          rolePill.textContent = 'Role: ';
+          rolePill.appendChild(roleSpan);
+          rolePill.appendChild(cursor);
 
-          // Left: Role label + typewriter span + cursor
-          const roleWrap = document.createElement('span');
-          roleWrap.style.cssText = 'color:var(--text-dark-muted); display:inline-flex; align-items:center; gap:5px; white-space:nowrap;';
-          roleWrap.textContent = 'Role: ';
-          roleWrap.appendChild(roleSpan);
-          roleWrap.appendChild(cursor);
-
-          // Divider
-          const divider = document.createElement('span');
-          divider.style.cssText = 'display:inline-block; width:1px; height:14px; background:rgba(255,255,255,0.18); margin:0 12px; flex-shrink:0;';
-
-          // Right: focus badge (dot + text from heroBadge)
-          const focusPill = document.createElement('span');
+          // ── Pill 2: Focus badge ──
+          const focusPill = document.createElement('div');
           focusPill.style.cssText = [
             'display:inline-flex',
             'align-items:center',
-            'align-self:center',
-            'vertical-align:middle',
             'gap:6px',
             'background:rgba(91,155,213,0.12)',
             'border:1px solid rgba(91,155,213,0.25)',
             'border-radius:100px',
-            'padding:5px 14px',
-            'color:var(--accent)',
-            'font-size:11.5px',
+            'padding:7px 18px',
+            'font-family:var(--font-mono)',
+            'font-size:12px',
             'font-weight:600',
+            'color:var(--accent)',
             'letter-spacing:0.04em',
             'white-space:nowrap',
           ].join(';');
@@ -218,14 +219,14 @@
           const badgeTextEl = document.getElementById('heroBadgeText');
           if (badgeTextEl) focusPill.appendChild(badgeTextEl);
 
-          bar.appendChild(roleWrap);
-          bar.appendChild(divider);
-          bar.appendChild(focusPill);
+          wrapper.appendChild(rolePill);
+          wrapper.appendChild(focusPill);
 
-          // Hide original badge (now empty) and insert bar before it
+          // Hide original badge (now empty) and insert wrapper before it
           badgeEl.style.display = 'none';
-          badgeEl.parentElement.insertBefore(bar, badgeEl);
+          badgeEl.parentElement.insertBefore(wrapper, badgeEl);
         }
+
 
 
         let roleIdx = 0, charIdx = 0, deleting = false;
