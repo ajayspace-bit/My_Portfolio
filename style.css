@@ -278,6 +278,7 @@ section.dark-section {
   transition: padding var(--dur-med) var(--ease),
               border-color var(--dur-med) var(--ease);
   white-space: nowrap;
+  position: relative; /* needed for nav-indicator */
 }
 .navbar.scrolled {
   padding: 8px 10px 8px 18px;
@@ -1155,7 +1156,12 @@ section.dark-section {
   opacity: 0;
   transition: opacity .4s ease, background-position .6s ease;
 }
-.project-card:hover .project-thumb::after { opacity: 1; background-position: -100% 0; }
+.project-card:hover .project-thumb::after { opacity: 1; background-position: -100% 0; animation: glint-sweep 0.7s ease forwards; }
+@keyframes glint-sweep {
+  0%   { background-position: 200% 0; opacity: 0; }
+  20%  { opacity: 1; }
+  100% { background-position: -100% 0; opacity: 0; }
+}
 .project-thumb i { font-size: 36px; color: var(--accent); position: relative; z-index: 1; }
 .project-thumb img {
   width: 100%; height: 100%;
@@ -1617,3 +1623,162 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
   .cursor-dot, .cursor-ring, .cursor-label    { display: none; }
   body { cursor: auto; }
 }
+
+/* ============================================================
+   ENHANCEMENT 1 — SCROLL PROGRESS BAR
+   ============================================================ */
+#scrollProgress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2.5px;
+  width: 0%;
+  background: var(--grad-accent);
+  z-index: 9999;
+  pointer-events: none;
+  box-shadow: 0 0 10px rgba(91,155,213,0.6), 0 0 20px rgba(91,155,213,0.3);
+  transition: width 0.05s linear;
+  border-radius: 0 2px 2px 0;
+}
+
+/* ============================================================
+   ENHANCEMENT 2 — HERO STAGGERED ENTRANCE ANIMATIONS
+   ============================================================ */
+@keyframes hero-fade-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes hero-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.hero-anim {
+  opacity: 0;
+  animation: hero-fade-up var(--dur-slow) var(--ease) both;
+}
+.hero-anim-0  { animation-delay: 0.08s; }
+.hero-anim-1  { animation-delay: 0.22s; }
+.hero-anim-2  { animation-delay: 0.38s; }
+.hero-anim-3  { animation-delay: 0.52s; }
+.hero-anim-4  { animation-delay: 0.66s; }
+.hero-anim-5  { animation-delay: 0.78s; }
+.hero-stage-anim {
+  opacity: 0;
+  animation: hero-fade-in 1s var(--ease) 0.25s both;
+}
+
+/* ============================================================
+   ENHANCEMENT 3 — MAGNETIC BUTTON CSS
+   ============================================================ */
+.btn, .nav-resume-btn {
+  --mx: 0px;
+  --my: 0px;
+  will-change: transform;
+}
+.btn.magnetic-active  { transition: transform 0.1s linear, box-shadow var(--dur-fast) var(--ease); }
+.nav-resume-btn.magnetic-active { transition: transform 0.1s linear, box-shadow var(--dur-fast) var(--ease); }
+
+/* ============================================================
+   ENHANCEMENT 4 — SLIDING NAV INDICATOR
+   ============================================================ */
+.nav-indicator {
+  position: absolute;
+  bottom: 6px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--grad-accent);
+  pointer-events: none;
+  transition: left 0.3s var(--ease), width 0.3s var(--ease), opacity 0.3s ease;
+  opacity: 0;
+  box-shadow: 0 0 8px rgba(91,155,213,0.6);
+}
+@media (max-width:860px) { .nav-indicator { display: none; } }
+
+/* ============================================================
+   ENHANCEMENT 5 — SKILLS PROFICIENCY MICRO-BARS
+   ============================================================ */
+.tech-tile {
+  --bar: 0;
+}
+.tech-tile-bar {
+  position: absolute;
+  bottom: 0; left: 0;
+  height: 2px;
+  width: 100%;
+  background: rgba(91,155,213,0.12);
+  border-radius: 0 0 11px 11px;
+  overflow: hidden;
+}
+.tech-tile-bar::after {
+  content: '';
+  display: block;
+  height: 100%;
+  width: var(--bar, 70%);
+  background: var(--grad-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s cubic-bezier(0.22,1,0.36,1);
+  border-radius: inherit;
+}
+.tech-tile:hover .tech-tile-bar::after,
+.tech-tile.bar-visible .tech-tile-bar::after {
+  transform: scaleX(1);
+}
+
+/* ============================================================
+   ENHANCEMENT 6 — TIMELINE EXPAND / COLLAPSE
+   ============================================================ */
+.tl-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  color: var(--accent);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  letter-spacing: 0.05em;
+  transition: opacity .25s ease;
+  user-select: none;
+}
+.tl-toggle-btn:hover { opacity: 0.75; }
+.tl-toggle-btn i {
+  font-size: 10px;
+  transition: transform 0.3s var(--ease);
+  color: var(--accent);
+}
+.tl-toggle-btn.expanded i { transform: rotate(180deg); }
+
+.tl-desc-wrap {
+  overflow: hidden;
+  max-height: 6.4em;   /* approx 4 lines at 1.7 line-height */
+  transition: max-height 0.45s var(--ease);
+}
+.tl-desc-wrap.expanded { max-height: 60em; }
+.tl-desc-wrap p, .tl-desc-wrap ul {
+  -webkit-line-clamp: unset !important;
+  line-clamp: unset !important;
+  display: block !important;
+}
+
+/* ============================================================
+   ENHANCEMENT 7 — EYEBROW DIGIT-ROLL ANIMATION
+   ============================================================ */
+@keyframes digit-roll {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  60%  { transform: translateY(5%);   opacity: 1; }
+  100% { transform: translateY(0);     opacity: 1; }
+}
+.eyebrow-num {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+.eyebrow-num.rolling .eyebrow-digit {
+  display: inline-block;
+  animation: digit-roll 0.5s var(--ease) both;
+}
+.eyebrow-num.rolling .eyebrow-digit:nth-child(2) { animation-delay: 0.08s; }

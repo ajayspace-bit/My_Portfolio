@@ -31,10 +31,13 @@
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
-  <link rel="stylesheet" href="style.css?v=7">
+  <link rel="stylesheet" href="style.css?v=8">
 </head>
 
 <body>
+
+  <!-- ============ SCROLL PROGRESS ============ -->
+  <div id="scrollProgress" aria-hidden="true"></div>
 
   <!-- ============ BACKGROUND LAYERS ============ -->
   <div class="bg-grid"></div>
@@ -54,6 +57,7 @@
         <ul class="nav-links" id="navLinks">
           <!-- Rendered by JS -->
         </ul>
+        <span class="nav-indicator" id="navIndicator" aria-hidden="true"></span>
         <div class="nav-cta">
           <button class="nav-resume-btn" id="navResume">RESUME</button>
           <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
@@ -283,7 +287,7 @@
   </div>
 
   <button class="to-top" id="toTop" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up"></i></button>
-  <script src="script.js?v=7"></script>
+  <script src="script.js?v=8"></script>
 
 </body>
 

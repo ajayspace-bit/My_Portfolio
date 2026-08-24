@@ -149,6 +149,24 @@
       avatarSlot.insertBefore(img, avatarSlot.firstChild);
     }
 
+    // ── Inject hero entrance animation stagger classes ──
+    const heroInner = document.querySelector('.hero-inner');
+    if (heroInner) {
+      const staggerTargets = [
+        document.getElementById('heroStatusBar') || document.getElementById('heroBadge'),
+        document.getElementById('heroHeading'),
+        document.getElementById('heroDesc'),
+        document.getElementById('heroSubDesc'),
+        document.getElementById('heroActions'),
+        document.getElementById('heroStats'),
+      ];
+      staggerTargets.forEach((el, i) => {
+        if (el) { el.classList.add('hero-anim', `hero-anim-${i}`); }
+      });
+    }
+    const heroStage = document.querySelector('.hero-stage');
+    if (heroStage) heroStage.classList.add('hero-stage-anim');
+
     // Legacy hero image wrapper — hidden by CSS, no-op
     const imgWrapper = document.getElementById('heroImageWrapper');
     if (imgWrapper) imgWrapper.style.display = 'none';
@@ -261,7 +279,15 @@
   }
 
   function renderAbout(about) {
-    setText('aboutEyebrow', about.eyebrow);
+    // ── Inject digit-roll markup on eyebrow ──
+    const aboutEyebrowEl = document.getElementById('aboutEyebrow');
+    if (aboutEyebrowEl) {
+      aboutEyebrowEl.innerHTML = about.eyebrow.replace(/^(\d+)/, (_, n) =>
+        `<span class="eyebrow-num">${n.split('').map(d => `<span class="eyebrow-digit">${d}</span>`).join('')}</span>`
+      );
+    } else {
+      setText('aboutEyebrow', about.eyebrow);
+    }
     setText('aboutHeading', about.heading);
     setText('aboutIntro', about.intro);
 
@@ -294,8 +320,34 @@
   }
 
   function renderSkills(skills) {
-    setText('skillsEyebrow', skills.eyebrow);
+    // ── Inject digit-roll markup on eyebrow ──
+    const skillsEyebrowEl = document.getElementById('skillsEyebrow');
+    if (skillsEyebrowEl) {
+      skillsEyebrowEl.innerHTML = skills.eyebrow.replace(/^(\d+)/, (_, n) =>
+        `<span class="eyebrow-num">${n.split('').map(d => `<span class="eyebrow-digit">${d}</span>`).join('')}</span>`
+      );
+    } else {
+      setText('skillsEyebrow', skills.eyebrow);
+    }
     setText('skillsHeading', skills.heading);
+
+    // Proficiency hints (0–100) per skill label — curated values
+    const proficiency = {
+      'HTML5':85, 'CSS3':80, 'JavaScript':75,
+      'Python':92, 'Flask':78, 'FastAPI':80, 'MySQL':72,
+      'NumPy':88, 'Pandas':90, 'Matplotlib':82, 'Seaborn':78,
+      'Scikit-learn':85, 'Excel':75, 'Google Colab':88, 'Jupyter':90,
+      'Machine Learning':88, 'TensorFlow':78, 'PyTorch':75, 'OpenCV':72,
+      'NLP':80, 'Deep Learning':76,
+      'Generative AI':90, 'LLMs':88, 'OpenAI API':85, 'Hugging Face':82,
+      'LangChain':90, 'LangGraph':85, 'LangSmith':80, 'CrewAI':78,
+      'MCP':75, 'AI Agents':88, 'Multi-Agent':82, 'RAG':87,
+      'Vector DBs':83, 'Embeddings':85, 'Prompt Eng.':90,
+      'Tool Calling':82, 'API Integration':86, 'AI Observability':78,
+      'Docker':72, 'AWS':70, 'Google Cloud':68, 'Git':88,
+      'GitHub':90, 'VS Code':92,
+      'Power BI':74, 'Tableau':70,
+    };
 
     const grid = document.getElementById('skillsGrid');
     grid.innerHTML = skills.categories.map(cat => {
@@ -308,19 +360,28 @@
           <h3>${esc(cat.name)}${isGenAI ? ' <span style="font-size:13px;opacity:0.7">✦</span>' : ''}</h3><span class="skill-count">${visibleItems.length}</span>
         </div>
         <div class="tech-grid">
-          ${visibleItems.map(item => `
-            <div class="tech-tile">
+          ${visibleItems.map(item => {
+            const pct = proficiency[item.label] || 75;
+            return `
+            <div class="tech-tile" style="--bar:${pct}%">
               <img src="${esc(item.icon)}" alt="${esc(item.label)}" class="tech-icon">
               <span>${esc(item.label)}</span>
-            </div>
-          `).join('')}
+              <div class="tech-tile-bar"></div>
+            </div>`;
+          }).join('')}
         </div>
       </div>`;
     }).join('');
   }
 
   function renderProjects(projects) {
-    setText('projectsEyebrow', projects.eyebrow);
+    // ── Inject digit-roll markup on eyebrow ──
+    const projectsEyebrowEl = document.getElementById('projectsEyebrow');
+    if (projectsEyebrowEl) {
+      projectsEyebrowEl.innerHTML = projects.eyebrow.replace(/^(\d+)/, (_, n) =>
+        `<span class="eyebrow-num">${n.split('').map(d => `<span class="eyebrow-digit">${d}</span>`).join('')}</span>`
+      );
+    }
     setText('projectsHeading', projects.heading);
 
     const grid = document.getElementById('projectsGrid');
@@ -354,7 +415,13 @@
   }
 
   function renderServices(services) {
-    setText('servicesEyebrow', services.eyebrow);
+    // ── Inject digit-roll markup on eyebrow ──
+    const servicesEyebrowEl = document.getElementById('servicesEyebrow');
+    if (servicesEyebrowEl) {
+      servicesEyebrowEl.innerHTML = services.eyebrow.replace(/^(\d+)/, (_, n) =>
+        `<span class="eyebrow-num">${n.split('').map(d => `<span class="eyebrow-digit">${d}</span>`).join('')}</span>`
+      );
+    }
     setText('servicesHeading', services.heading);
 
     const visibleItems = services.items.filter(s => !s.hidden);
@@ -369,17 +436,23 @@
   }
 
   function renderExperience(exp) {
-    setText('expEyebrow', exp.eyebrow);
+    // ── Inject digit-roll markup on eyebrow ──
+    const expEyebrowEl = document.getElementById('expEyebrow');
+    if (expEyebrowEl) {
+      expEyebrowEl.innerHTML = exp.eyebrow.replace(/^(\d+)/, (_, n) =>
+        `<span class="eyebrow-num">${n.split('').map(d => `<span class="eyebrow-digit">${d}</span>`).join('')}</span>`
+      );
+    }
     setText('expHeading', exp.heading);
 
     const timeline = document.getElementById('expTimeline');
     if (!timeline) return;
     timeline.innerHTML = exp.items.map(e => {
-      let detailsHTML = '';
+      let descHTML = '';
       if (e.bullets && e.bullets.length > 0) {
-        detailsHTML = `<ul>${e.bullets.map(b => `<li>${esc(b)}</li>`).join('')}</ul>`;
+        descHTML = `<ul>${e.bullets.map(b => `<li>${esc(b)}</li>`).join('')}</ul>`;
       } else if (e.description) {
-        detailsHTML = `<p>${esc(e.description)}</p>`;
+        descHTML = `<p>${esc(e.description)}</p>`;
       }
       return `
         <div class="timeline-item reveal" tabindex="0">
@@ -387,14 +460,38 @@
           <div class="tl-year">${esc(e.duration)}</div>
           <h3>${esc(e.title)}</h3>
           <div class="tl-company">${esc(e.company)}</div>
-          ${detailsHTML}
+          <div class="tl-desc-wrap">${descHTML}</div>
+          <button class="tl-toggle-btn" aria-expanded="false">
+            READ MORE <i class="fa-solid fa-chevron-down"></i>
+          </button>
         </div>
       `;
     }).join('');
+
+    // ── Expand/collapse logic ──
+    timeline.querySelectorAll('.tl-toggle-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const item = btn.closest('.timeline-item');
+        const wrap = item.querySelector('.tl-desc-wrap');
+        const expanded = wrap.classList.toggle('expanded');
+        btn.classList.toggle('expanded', expanded);
+        btn.setAttribute('aria-expanded', String(expanded));
+        btn.innerHTML = expanded
+          ? 'SHOW LESS <i class="fa-solid fa-chevron-down"></i>'
+          : 'READ MORE <i class="fa-solid fa-chevron-down"></i>';
+      });
+    });
   }
 
   function renderContact(contact) {
-    setText('contactEyebrow', contact.eyebrow);
+    // ── Inject digit-roll markup on eyebrow ──
+    const contactEyebrowEl = document.getElementById('contactEyebrow');
+    if (contactEyebrowEl) {
+      contactEyebrowEl.innerHTML = contact.eyebrow.replace(/^(\d+)/, (_, n) =>
+        `<span class="eyebrow-num">${n.split('').map(d => `<span class="eyebrow-digit">${d}</span>`).join('')}</span>`
+      );
+    }
 
     // ── Availability badge ──
     const availBadge = document.getElementById('contactAvailBadge');
@@ -508,7 +605,7 @@
     }, { threshold: 0.10, rootMargin: '0px 0px -50px 0px' });
     revealEls.forEach(el => io.observe(el));
 
-    // ── Animated stat counters ──
+    // ── Animated stat counters (easing ease-out) ──
     const statNums = document.querySelectorAll('.stat-num[data-target]');
     if (statNums.length) {
       const countObs = new IntersectionObserver((entries) => {
@@ -517,13 +614,17 @@
           const el     = entry.target;
           const target = parseInt(el.dataset.target, 10);
           const suffix = el.dataset.suffix || '';
-          const step   = Math.max(1, Math.round(target / (1400 / 16)));
-          let current  = 0;
-          const timer  = setInterval(() => {
-            current = Math.min(current + step, target);
+          const duration = 1600; // ms
+          const startTime = performance.now();
+          function easeOut(t) { return 1 - Math.pow(1 - t, 3); } // cubic ease-out
+          function step(now) {
+            const elapsed = now - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const current = Math.round(easeOut(progress) * target);
             el.textContent = current + suffix;
-            if (current >= target) clearInterval(timer);
-          }, 16);
+            if (progress < 1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
           countObs.unobserve(el);
         });
       }, { threshold: 0.5 });
@@ -711,6 +812,102 @@
         if (e.key === 'Escape' && resumeModal.classList.contains('show')) closeModal();
       });
     }
+
+    // ── Scroll Progress Bar ──
+    const progressBar = document.getElementById('scrollProgress');
+    if (progressBar) {
+      const updateProgress = () => {
+        const scrollTop  = window.scrollY;
+        const docHeight  = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        progressBar.style.width = pct + '%';
+      };
+      window.addEventListener('scroll', updateProgress, { passive: true });
+      updateProgress();
+    }
+
+    // ── Sliding Nav Indicator ──
+    (function initNavIndicator() {
+      const indicator = document.getElementById('navIndicator');
+      const navList   = document.getElementById('navLinks');
+      if (!indicator || !navList) return;
+
+      function moveIndicator(targetLink) {
+        const navRect  = navList.getBoundingClientRect();
+        const linkRect = targetLink.getBoundingClientRect();
+        indicator.style.left    = (linkRect.left - navRect.left + navList.offsetLeft) + 'px';
+        indicator.style.width   = linkRect.width + 'px';
+        indicator.style.opacity = '1';
+      }
+
+      // Watch for active nav changes
+      const navObserver = new MutationObserver(() => {
+        const active = navList.querySelector('.nav-link.active');
+        if (active) moveIndicator(active);
+        else indicator.style.opacity = '0';
+      });
+      navObserver.observe(navList, { attributes: true, subtree: true, attributeFilter: ['class'] });
+
+      // Initial position
+      const firstActive = navList.querySelector('.nav-link.active');
+      if (firstActive) moveIndicator(firstActive);
+    })();
+
+    // ── Magnetic Buttons ──
+    (function initMagneticButtons() {
+      const STRENGTH = 0.35; // how strong the pull is (0=none, 1=full)
+      const magnetEls = document.querySelectorAll('.btn-primary, .btn-outline, .nav-resume-btn');
+      magnetEls.forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+          const rect = btn.getBoundingClientRect();
+          const cx = rect.left + rect.width  / 2;
+          const cy = rect.top  + rect.height / 2;
+          const dx = (e.clientX - cx) * STRENGTH;
+          const dy = (e.clientY - cy) * STRENGTH;
+          btn.style.transform = `translate(${dx}px, ${dy}px)`;
+          btn.classList.add('magnetic-active');
+        });
+        btn.addEventListener('mouseleave', () => {
+          btn.style.transform = '';
+          btn.classList.remove('magnetic-active');
+        });
+      });
+    })();
+
+    // ── Eyebrow digit-roll on section enter ──
+    (function initEyebrowRoll() {
+      const eyebrowNums = document.querySelectorAll('.eyebrow-num');
+      if (!eyebrowNums.length) return;
+      const rollObs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const numEl = entry.target;
+            // Trigger animation by toggling class
+            numEl.classList.remove('rolling');
+            void numEl.offsetWidth; // reflow
+            numEl.classList.add('rolling');
+            rollObs.unobserve(numEl);
+          }
+        });
+      }, { threshold: 0.5 });
+      eyebrowNums.forEach(n => rollObs.observe(n));
+    })();
+
+    // ── Skills micro-bar — trigger on tile hover ──
+    // (CSS handles the animation; just ensure bar-visible class for visible tiles on scroll)
+    (function initSkillBars() {
+      const tiles = document.querySelectorAll('.tech-tile');
+      if (!tiles.length) return;
+      const barObs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('bar-visible');
+            barObs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.8 });
+      tiles.forEach(t => barObs.observe(t));
+    })();
   }
 
   /* ═══════════════════════════════════════
@@ -913,9 +1110,14 @@
       const t = Date.now();
 
       orbs.forEach(orb => {
-        /* Gently drift the orb centre using sine waves */
-        const cx = W * (orb.xP + 0.08 * Math.sin(t * orb.spd + orb.ph));
-        const cy = H * (orb.yP + 0.06 * Math.cos(t * orb.spd * 1.3 + orb.ph));
+        /* Gently drift the orb centre + subtle mouse attraction */
+        const baseX = W * (orb.xP + 0.08 * Math.sin(t * orb.spd + orb.ph));
+        const baseY = H * (orb.yP + 0.06 * Math.cos(t * orb.spd * 1.3 + orb.ph));
+
+        /* Mouse influence — orbs drift toward cursor (very gently) */
+        const mouseInfluence = 0.07;
+        const cx = baseX + (_heroMX !== null ? (_heroMX - baseX) * mouseInfluence * orb.a : 0);
+        const cy = baseY + (_heroMY !== null ? (_heroMY - baseY) * mouseInfluence * orb.a : 0);
         const r  = Math.min(W, H) * orb.rP;
 
         /* Pulsing alpha */
@@ -952,6 +1154,19 @@
   }
 
   /* Boot both canvases after DOM is ready */
+  /* Mouse tracking for aurora reactivity */
+  let _heroMX = null, _heroMY = null;
+  (function trackHeroMouse() {
+    const heroEl = document.getElementById('home');
+    if (!heroEl) return;
+    heroEl.addEventListener('mousemove', (e) => {
+      const rect = heroEl.getBoundingClientRect();
+      _heroMX = e.clientX - rect.left;
+      _heroMY = e.clientY - rect.top;
+    });
+    heroEl.addEventListener('mouseleave', () => { _heroMX = null; _heroMY = null; });
+  })();
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       initBgCanvas();
