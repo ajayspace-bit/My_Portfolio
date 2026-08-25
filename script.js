@@ -959,8 +959,9 @@
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   /* ─── Colour constants (match :root vars) ─── */
-  const ACCENT     = '91,155,213';  /* --accent rgb */
-  const DEEP       = '10,14,26';    /* --bg-dark  rgb */
+  const ACCENT     = '38,189,248';   /* --accent rgb - vivid cyan-blue */
+  const VIOLET_C   = '167,139,250';  /* --violet rgb */
+  const DEEP       = '4,6,14';       /* --bg rgb */
 
   /* ════════════════════════════════════════════
      1. GLOBAL PARTICLE CANVAS  (#bgCanvas)
@@ -974,7 +975,7 @@
 
     let W, H, particles = [];
 
-    const PARTICLE_COUNT = 80;
+    const PARTICLE_COUNT = 110;
 
     function resize() {
       W = canvas.width  = window.innerWidth;
@@ -985,13 +986,14 @@
       return {
         x:    Math.random() * W,
         y:    Math.random() * H,
-        r:    Math.random() * 1.4 + 0.3,          /* radius 0.3 – 1.7 px */
-        vx:   (Math.random() - 0.5) * 0.22,        /* drift speed x */
-        vy:   (Math.random() - 0.5) * 0.18,        /* drift speed y */
-        a:    Math.random() * 0.55 + 0.1,          /* opacity 0.1 – 0.65 */
+        r:    Math.random() * 1.6 + 0.4,          /* radius 0.4 – 2 px */
+        vx:   (Math.random() - 0.5) * 0.25,        /* drift speed x */
+        vy:   (Math.random() - 0.5) * 0.20,        /* drift speed y */
+        a:    Math.random() * 0.60 + 0.12,          /* opacity 0.12 – 0.72 */
         pA:   Math.random() * Math.PI * 2,         /* pulse phase offset */
-        pS:   Math.random() * 0.005 + 0.003,       /* pulse speed */
-        glowing: Math.random() < 0.18              /* 18% are bright glowing dots */
+        pS:   Math.random() * 0.006 + 0.003,       /* pulse speed */
+        glowing: Math.random() < 0.22,              /* 22% are bright glowing dots */
+        isViolet: Math.random() < 0.30              /* 30% use violet color */
       };
     }
 
@@ -1019,19 +1021,20 @@
       particles.forEach(p => {
         p.pA += p.pS;
         const pulsed = p.a * (0.75 + 0.25 * Math.sin(p.pA));
+        const particleColor = p.isViolet ? '167,139,250' : ACCENT;
 
         if (p.glowing) {
           /* Soft glow halo around bright dots */
-          const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 5);
-          grad.addColorStop(0, `rgba(${ACCENT},${pulsed * 0.9})`);
-          grad.addColorStop(1, `rgba(${ACCENT},0)`);
+          const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 6);
+          grad.addColorStop(0, `rgba(${particleColor},${pulsed * 0.95})`);
+          grad.addColorStop(1, `rgba(${particleColor},0)`);
           ctx.fillStyle = grad;
           ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r * 5, 0, Math.PI * 2);
+          ctx.arc(p.x, p.y, p.r * 6, 0, Math.PI * 2);
           ctx.fill();
         }
 
-        ctx.fillStyle = `rgba(${ACCENT},${pulsed})`;
+        ctx.fillStyle = `rgba(${particleColor},${pulsed})`;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fill();
@@ -1053,9 +1056,11 @@
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 100) {
-            ctx.strokeStyle = `rgba(${ACCENT},${0.07 * (1 - dist / 100)})`;
-            ctx.lineWidth = 0.5;
+          if (dist < 110) {
+            const lineAlpha = 0.10 * (1 - dist / 110);
+            const useViolet = particles[i].isViolet && particles[j].isViolet;
+            ctx.strokeStyle = `rgba(${useViolet ? VIOLET_C : ACCENT},${lineAlpha})`;
+            ctx.lineWidth = 0.6;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
@@ -1092,17 +1097,19 @@
     }
 
     /* Accent RGB values for dual-tone aurora */
-    const ACCENT_ORB  = '91,155,213';   /* blue */
+    const ACCENT_ORB  = '38,189,248';   /* vivid cyan-blue */
     const VIOLET_ORB  = '167,139,250';  /* violet */
+    const INDIGO_ORB  = '99,102,241';   /* indigo */
 
-    /* Define aurora orbs — mix of blue and violet for depth */
+    /* Define aurora orbs — rich multi-tone aurora */
     const orbs = [
       /* xP, yP, rP, spd, ph, alpha, color */
-      { xP:0.18, yP:0.28, rP:0.45, spd:0.00018, ph:0.0,             a:0.13, c:ACCENT_ORB  },
-      { xP:0.72, yP:0.15, rP:0.38, spd:0.00024, ph:Math.PI*0.7,    a:0.10, c:ACCENT_ORB  },
-      { xP:0.55, yP:0.75, rP:0.32, spd:0.00031, ph:Math.PI*1.3,    a:0.07, c:VIOLET_ORB  },
-      { xP:0.88, yP:0.55, rP:0.28, spd:0.00020, ph:Math.PI*1.85,   a:0.09, c:VIOLET_ORB  },
-      { xP:0.35, yP:0.60, rP:0.22, spd:0.00027, ph:Math.PI*0.4,    a:0.06, c:ACCENT_ORB  },
+      { xP:0.15, yP:0.25, rP:0.50, spd:0.00018, ph:0.0,             a:0.17, c:ACCENT_ORB  },
+      { xP:0.75, yP:0.12, rP:0.42, spd:0.00024, ph:Math.PI*0.7,    a:0.13, c:ACCENT_ORB  },
+      { xP:0.52, yP:0.72, rP:0.36, spd:0.00031, ph:Math.PI*1.3,    a:0.10, c:VIOLET_ORB  },
+      { xP:0.88, yP:0.50, rP:0.30, spd:0.00020, ph:Math.PI*1.85,   a:0.12, c:VIOLET_ORB  },
+      { xP:0.32, yP:0.55, rP:0.26, spd:0.00027, ph:Math.PI*0.4,    a:0.08, c:ACCENT_ORB  },
+      { xP:0.62, yP:0.35, rP:0.22, spd:0.00022, ph:Math.PI*1.1,    a:0.09, c:INDIGO_ORB  },
     ];
 
     function draw() {
@@ -1111,22 +1118,22 @@
 
       orbs.forEach(orb => {
         /* Gently drift the orb centre + subtle mouse attraction */
-        const baseX = W * (orb.xP + 0.08 * Math.sin(t * orb.spd + orb.ph));
-        const baseY = H * (orb.yP + 0.06 * Math.cos(t * orb.spd * 1.3 + orb.ph));
+        const baseX = W * (orb.xP + 0.09 * Math.sin(t * orb.spd + orb.ph));
+        const baseY = H * (orb.yP + 0.07 * Math.cos(t * orb.spd * 1.3 + orb.ph));
 
         /* Mouse influence — orbs drift toward cursor (very gently) */
-        const mouseInfluence = 0.07;
+        const mouseInfluence = 0.08;
         const cx = baseX + (_heroMX !== null ? (_heroMX - baseX) * mouseInfluence * orb.a : 0);
         const cy = baseY + (_heroMY !== null ? (_heroMY - baseY) * mouseInfluence * orb.a : 0);
         const r  = Math.min(W, H) * orb.rP;
 
         /* Pulsing alpha */
-        const alpha = orb.a * (0.8 + 0.2 * Math.sin(t * 0.0006 + orb.ph));
+        const alpha = orb.a * (0.75 + 0.25 * Math.sin(t * 0.0007 + orb.ph));
         const orbColor = orb.c || ACCENT;
 
         const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
         grad.addColorStop(0,   `rgba(${orbColor}, ${alpha})`);
-        grad.addColorStop(0.4, `rgba(${orbColor}, ${alpha * 0.45})`);
+        grad.addColorStop(0.35, `rgba(${orbColor}, ${alpha * 0.50})`);
         grad.addColorStop(1,   `rgba(${orbColor}, 0)`);
 
         ctx.fillStyle = grad;
@@ -1135,15 +1142,16 @@
         ctx.fill();
       });
 
-      /* Top-edge aurora sweep */
+      /* Top-edge aurora sweep — vivid neon */
       const sweepGrad = ctx.createLinearGradient(0, 0, W, 0);
-      const sweepAlpha = 0.06 + 0.03 * Math.sin(t * 0.0003);
-      sweepGrad.addColorStop(0,   `rgba(${ACCENT}, 0)`);
-      sweepGrad.addColorStop(0.3, `rgba(${ACCENT}, ${sweepAlpha})`);
-      sweepGrad.addColorStop(0.7, `rgba(${ACCENT}, ${sweepAlpha * 0.7})`);
-      sweepGrad.addColorStop(1,   `rgba(${ACCENT}, 0)`);
+      const sweepAlpha = 0.08 + 0.04 * Math.sin(t * 0.0003);
+      sweepGrad.addColorStop(0,   `rgba(${ACCENT_ORB}, 0)`);
+      sweepGrad.addColorStop(0.25, `rgba(${ACCENT_ORB}, ${sweepAlpha})`);
+      sweepGrad.addColorStop(0.5, `rgba(${VIOLET_ORB}, ${sweepAlpha * 0.8})`);
+      sweepGrad.addColorStop(0.75, `rgba(${ACCENT_ORB}, ${sweepAlpha * 0.6})`);
+      sweepGrad.addColorStop(1,   `rgba(${ACCENT_ORB}, 0)`);
       ctx.fillStyle = sweepGrad;
-      ctx.fillRect(0, 0, W, H * 0.35);
+      ctx.fillRect(0, 0, W, H * 0.40);
 
       requestAnimationFrame(draw);
     }
