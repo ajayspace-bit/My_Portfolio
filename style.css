@@ -1976,3 +1976,118 @@ section#contact::after {
   background: linear-gradient(90deg, transparent, rgba(56,189,248,0.20) 30%, rgba(167,139,250,0.20) 70%, transparent);
   pointer-events: none;
 }
+
+/* ============================================================
+   GSAP ANIMATION SUPPORT
+   ─ These rules integrate cleanly with gsap-animations.js
+   ============================================================ */
+
+/* ── GSAP takes over reveal: disable old CSS transitions ──
+   GSAP sets opacity/transform directly, so we ensure
+   .reveal elements don't fight with CSS transitions once
+   GSAP is loaded. We keep the initial hidden state intact
+   but remove the transition so GSAP controls everything.     */
+.gsap-ready .reveal {
+  transition: none !important;
+}
+
+/* Add gsap-ready class via JS so fallback still works if GSAP fails */
+
+/* ── clip-path initial state support ──
+   Ensure browsers support clip-path transitions for heading reveals */
+.section-head h2,
+#heroHeading {
+  will-change: clip-path, opacity, transform;
+}
+
+/* ── Hero card — ensure 3D perspective context ── */
+.hero-stage {
+  perspective: 1200px;
+  perspective-origin: 50% 50%;
+}
+
+.hero-card-3d {
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+
+/* ── Orbit GSAP control — remove CSS animation so GSAP drives it ── */
+.orbit {
+  animation: none !important;
+  will-change: transform;
+}
+
+/* ── Card tilt — enable 3D on all tilt targets ── */
+.card-dark,
+.project-card,
+.service-card,
+.timeline-item {
+  transform-style: flat;
+  will-change: transform;
+}
+
+/* ── Tech tile spring — set transform origin to center ── */
+.tech-tile {
+  transform-origin: center center;
+  will-change: transform, opacity;
+}
+
+/* ── Social button spring ── */
+.social-btn {
+  transform-origin: center bottom;
+  will-change: transform;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Service icon bounce ── */
+.service-icon {
+  will-change: transform;
+  transform-origin: center bottom;
+  display: inline-flex;
+}
+
+/* ── About card icon bounce ── */
+.card-icon {
+  will-change: transform;
+  transform-origin: center center;
+}
+
+/* ── GSAP word split helper ── */
+.gsap-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+.gsap-word-inner {
+  display: inline-block;
+}
+
+/* ── Smooth project thumb overflow for zoom ── */
+.project-thumb {
+  overflow: hidden;
+}
+.project-thumb img,
+.project-thumb i {
+  will-change: transform;
+  transition: none; /* GSAP controls this */
+}
+
+/* ── Navbar entrance — ensure starts above viewport ── */
+.navbar-wrap {
+  will-change: transform, opacity;
+}
+
+/* ── Hero inner text block ── */
+.hero-inner {
+  will-change: transform;
+}
+
+/* ── ScrollTrigger marker hide (production) ── */
+.gsap-marker-start,
+.gsap-marker-end,
+.gsap-marker-scroller-start,
+.gsap-marker-scroller-end {
+  display: none !important;
+}
